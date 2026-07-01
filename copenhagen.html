@@ -168,6 +168,18 @@
     border-bottom: 1px solid var(--border);
   }
 
+  .day-map {
+    margin-bottom: 14px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .day-map svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   /* Stop cards */
   .stop {
     display: flex;
@@ -190,6 +202,8 @@
   }
   .stop-content { flex: 1; }
   .stop-name { font-weight: 700; font-size: 0.9em; }
+  .stop-name a, .coffee-name a { color: inherit; text-decoration: none; }
+  .stop-name a::after, .coffee-name a::after { content: " \1F4CD"; font-size: 0.75em; }
   .stop-timing { font-size: 0.75em; color: var(--light); margin-top: 1px; }
   .stop-desc { font-size: 0.82em; color: var(--subtle); margin-top: 4px; line-height: 1.5; }
   .stop-tips { margin-top: 6px; }
@@ -227,6 +241,17 @@
   .coffee-desc { font-size: 0.8em; color: var(--subtle); margin-top: 3px; line-height: 1.5; }
 
   /* Evening section */
+  .travel-section {
+    background: #EDE7F6;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    border-left: 3px solid #9b59b6;
+  }
+  .travel-title { font-weight: 700; font-size: 0.88em; color: var(--text); margin-bottom: 4px; }
+  .travel-desc { font-size: 0.82em; color: var(--subtle); line-height: 1.5; }
+  .travel-desc strong { color: var(--text); }
+
   .evening-section {
     background: #e8e8e8;
     border-radius: 8px;
@@ -235,6 +260,70 @@
   }
   .evening-title { font-weight: 700; font-size: 0.88em; color: var(--text); margin-bottom: 4px; }
   .evening-desc { font-size: 0.82em; color: var(--subtle); line-height: 1.5; }
+
+
+  .food-section {
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-top: 14px;
+  }
+  .food-header { font-weight: 700; font-size: 0.9em; color: var(--text); margin-bottom: 10px; }
+  .food-sub-header { font-weight: 700; font-size: 0.82em; margin: 10px 0 6px 0; padding: 4px 8px; border-radius: 4px; display: inline-block; }
+  .food-sub-header.lunch { background: #E8F6F3; color: #0E6E5E; }
+  .food-sub-header.dinner { background: #F5EEF8; color: #6C3A8A; }
+  .food-sub-header.street { background: #FFF3CD; color: #784212; }
+  .food-spot {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+  }
+  .food-spot:last-child { border-bottom: none; }
+  .food-name { font-weight: 600; font-size: 0.85em; color: var(--text); }
+  .food-name a { color: inherit; text-decoration: none; }
+  .food-name a::after { content: " \1F4CD"; font-size: 0.75em; }
+  .food-rating { font-size: 0.78em; color: #999; }
+  .food-addr { font-size: 0.8em; color: var(--subtle); font-weight: 600; margin: 2px 0; }
+  .food-desc { font-size: 0.8em; color: var(--subtle); line-height: 1.5; }
+
+  .info-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+  }
+  .info-card-title { font-weight: 700; font-size: 0.9em; color: var(--text); margin-bottom: 6px; }
+  .info-card-row { font-size: 0.82em; color: var(--subtle); line-height: 1.7; }
+  .info-card-row strong { color: var(--text); }
+  .info-label { display: inline-block; min-width: 90px; font-weight: 600; color: var(--text); }
+  .info-highlight {
+    background: #E8F8E8;
+    border-left: 3px solid #27ae60;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 0.82em;
+    color: var(--subtle);
+    line-height: 1.6;
+  }
+  .info-highlight strong { color: var(--text); }
+  .info-warning {
+    background: #FFF3CD;
+    border-left: 3px solid #d4a017;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 0.82em;
+    color: var(--subtle);
+    line-height: 1.6;
+  }
+  .info-warning strong { color: var(--text); }
+  .itinerary-sub {
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
+  }
+  .itinerary-sub:last-child { border-bottom: none; }
+  .itinerary-sub-title { font-weight: 700; font-size: 0.95em; color: var(--text); margin-bottom: 8px; }
 
   /* Offline indicator */
   .offline-badge {
@@ -264,7 +353,7 @@
 <div class="container">
 
   <!-- ========== OVERVIEW ========== -->
-  <details class="top-section" open>
+  <details class="top-section">
     <summary>
       <span class="section-icon">🗺️</span>
       <span class="section-label">
@@ -379,6 +468,151 @@
     </div>
   </details>
 
+  <!-- ========== ITINERARY ========== -->
+  <details class="top-section">
+    <summary>
+      <span class="section-icon">✈️</span>
+      <span class="section-label">
+        <div class="title">Itinerary</div>
+        <div class="subtitle">Flights, hotel, parking & airport directions</div>
+      </span>
+      <span class="section-chevron">▼</span>
+    </summary>
+    <div class="section-body">
+
+      <!-- AIRPORT PARKING -->
+      <details class="day-detail">
+        <summary>
+          <span class="day-detail-label"><div class="dtitle">🅿️ Airport Parking — Edinburgh</div></span>
+          <span class="section-chevron">▼</span>
+        </summary>
+        <div class="day-detail-body">
+
+        <div class="info-card">
+          <div class="info-card-title">FastPark Refundable</div>
+          <div class="info-card-row"><span class="info-label">Order ID:</span> <strong>AXSGY6P33</strong></div>
+          <div class="info-card-row"><span class="info-label">Name:</span> Scott Stevenson</div>
+          <div class="info-card-row"><span class="info-label">Car reg:</span> SC67TJS</div>
+          <div class="info-card-row"><span class="info-label">Drop-off:</span> 5 July 2026 from 06:00</div>
+          <div class="info-card-row"><span class="info-label">Pick-up:</span> 12 July 2026 by 17:00</div>
+        </div>
+
+        <div class="info-highlight">
+          <strong>How it works:</strong> FastPark is self-service valet. Drive to the FastPark zone right next to the terminal, park, check in at the kiosk, leave your keys, and walk straight to departures — takes about 2 minutes. On return, collect keys from the kiosk and your car will be in the same area.
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-title">Directions to FastPark</div>
+          <div class="info-card-row">From Glasgow Road on Eastfield Road, go straight at the roundabout by the Moxy/DoubleTree hotels, then turn left at the roundabout by Hampton by Hilton onto Jubilee Road. Follow signs to FastPark past the airport tower.</div>
+        </div>
+
+        </div>
+      </details>
+
+      <!-- FLIGHTS -->
+      <details class="day-detail">
+        <summary>
+          <span class="day-detail-label"><div class="dtitle">✈️ Flights</div></span>
+          <span class="section-chevron">▼</span>
+        </summary>
+        <div class="day-detail-body">
+
+        <div class="info-card">
+          <div class="info-card-title">Outbound — Edinburgh → Copenhagen</div>
+          <div class="info-card-row"><span class="info-label">Flight:</span> D83503 · Norwegian Air</div>
+          <div class="info-card-row"><span class="info-label">Date:</span> Sunday 5 July 2026</div>
+          <div class="info-card-row"><span class="info-label">Depart:</span> <strong>08:35</strong> Edinburgh Airport</div>
+          <div class="info-card-row"><span class="info-label">Arrive:</span> <strong>11:20</strong> Copenhagen Kastrup, Terminal 3</div>
+          <div class="info-card-row"><span class="info-label">Duration:</span> 1h 45m</div>
+          <div class="info-card-row"><span class="info-label">Ticket:</span> LowFare+</div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-title">Return — Copenhagen → Edinburgh</div>
+          <div class="info-card-row"><span class="info-label">Flight:</span> D83504 · Norwegian Air</div>
+          <div class="info-card-row"><span class="info-label">Date:</span> Sunday 12 July 2026</div>
+          <div class="info-card-row"><span class="info-label">Depart:</span> <strong>15:20</strong> Copenhagen Kastrup, Terminal 2</div>
+          <div class="info-card-row"><span class="info-label">Arrive:</span> <strong>16:15</strong> Edinburgh Airport</div>
+          <div class="info-card-row"><span class="info-label">Duration:</span> 1h 55m</div>
+          <div class="info-card-row"><span class="info-label">Ticket:</span> LowFare+</div>
+        </div>
+
+        <div class="info-highlight">
+          <strong>Baggage allowance:</strong> 1 checked bag (max 23 kg), 1 overhead cabin bag (55×40×23 cm), 1 small underseat bag (30×20×40 cm). Cabin bags combined max 10 kg.
+        </div>
+
+        </div>
+      </details>
+
+      <!-- AIRPORT ↔ HOTEL -->
+      <details class="day-detail">
+        <summary>
+          <span class="day-detail-label"><div class="dtitle">🚇 Airport ↔ Hotel Directions</div></span>
+          <span class="section-chevron">▼</span>
+        </summary>
+        <div class="day-detail-body">
+
+        <div class="info-card">
+          <div class="info-card-title">Copenhagen Kastrup → Scandic Front (arrival)</div>
+          <div class="info-card-row" style="line-height:2">
+            <strong>1.</strong> Follow signs to Metro inside the airport terminal<br>
+            <strong>2.</strong> Take <strong>M2</strong> towards Vanløse (or M1) — runs every 4–6 min<br>
+            <strong>3.</strong> Ride to <strong>Kongens Nytorv</strong> station (13 min, 3 zones)<br>
+            <strong>4.</strong> Exit the station, walk 5–8 min east towards the harbour<br>
+            <strong>5.</strong> Scandic Front is at <strong>Sankt Annæ Plads 21</strong>, overlooking the water
+          </div>
+        </div>
+
+        <div class="info-highlight">
+          <strong>Ticket:</strong> A 3-zone ticket costs ~36 DKK per adult. Buy from machines in the station or use the DOT app. Children under 12 travel free with a paying adult. The Copenhagen Card also covers all public transport including this journey.
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-title">Scandic Front → Copenhagen Kastrup (departure day)</div>
+          <div class="info-card-row" style="line-height:2">
+            <strong>1.</strong> Walk 5–8 min to <strong>Kongens Nytorv</strong> Metro station<br>
+            <strong>2.</strong> Take <strong>M2</strong> towards Lufthavnen (Airport)<br>
+            <strong>3.</strong> Ride to <strong>Kastrup Lufthavn</strong> station (13 min)<br>
+            <strong>4.</strong> Follow signs to <strong>Terminal 2</strong> for your return flight<br>
+            <strong>5.</strong> Flight D83504 departs <strong>15:20</strong> — aim to arrive by 13:00
+          </div>
+        </div>
+
+        <div class="info-warning">
+          <strong>Departure day timing:</strong> Check-out by 12:00, Metro to airport takes ~20 min total. You'll have time for a last lunch near Nyhavn before heading to the airport. Leave the hotel by 12:45 at the latest.
+        </div>
+
+        </div>
+      </details>
+
+      <!-- HOTEL -->
+      <details class="day-detail">
+        <summary>
+          <span class="day-detail-label"><div class="dtitle">🏨 Hotel</div></span>
+          <span class="section-chevron">▼</span>
+        </summary>
+        <div class="day-detail-body">
+
+        <div class="info-card">
+          <div class="info-card-title"><a href="https://www.google.com/maps/search/?api=1&query=Scandic+Front+Copenhagen" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Scandic Front 📍</a></div>
+          <div class="info-card-row"><span class="info-label">Address:</span> Sankt Annæ Plads 21, 1250 København K</div>
+          <div class="info-card-row"><span class="info-label">Dates:</span> 5–12 July 2026 (7 nights)</div>
+          <div class="info-card-row"><span class="info-label">Check-in:</span> From 16:00</div>
+          <div class="info-card-row"><span class="info-label">Check-out:</span> By 12:00</div>
+          <div class="info-card-row"><span class="info-label">Location:</span> Overlooking the harbour, 2 min walk from Nyhavn</div>
+          <div class="info-card-row"><span class="info-label">Booking ref:</span> <em>Awaiting details from Maggi</em></div>
+        </div>
+
+        <div class="info-warning">
+          <strong>Note:</strong> Booking reference and room details to be added when confirmed. Breakfast is included at the hotel.
+        </div>
+
+        </div>
+      </details>
+
+    </div>
+  </details>
+
   <!-- ========== DAY GUIDES ========== -->
   <details class="top-section">
     <summary>
@@ -406,10 +640,53 @@
             Best in sunshine · The classic Copenhagen waterfront walk from Nyhavn north to the Little Mermaid. Start with a canal boat tour from Nyhavn, see the guard change at Amalienborg, explore the Designmuseum, wander through the star-shaped Kastellet fortress, and finish at the Little Mermaid statue. Everything is along the harbourfront — a natural, flat walk of about 3 km. Start the day close to the hotel.
           </div>
 
+          <div class="day-map">
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" style="background:#f0f4f8">
+  <style>text { font-family: Arial, Helvetica, sans-serif; }</style>
+  <rect x="0" y="300" width="600" height="100" fill="#d4e6f1" opacity="0.3"/>
+  <text x="300" y="370" text-anchor="middle" fill="#5dade2" font-size="10" font-style="italic">Copenhagen Harbour</text>
+  <path d="M 150,280 L 250,250 L 350,200 L 420,150 L 500,120 L 530,100" fill="none" stroke="#e74c3c" stroke-width="2" stroke-dasharray="8,4"/>
+  <rect x="88" y="300" width="24" height="24" rx="4" fill="#2980b9"/>
+  <text x="100" y="317" text-anchor="middle" fill="white" font-size="12" font-weight="bold">H</text>
+  <text x="100" y="295" text-anchor="middle" fill="#2980b9" font-size="8" font-weight="bold">HOTEL</text>
+  <circle cx="150" cy="280" r="12" fill="#c0392b"/>
+  <text x="150" y="285" text-anchor="middle" fill="white" font-size="11" font-weight="bold">1</text>
+  <text x="150" y="265" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Nyhavn</text>
+  <circle cx="250" cy="250" r="12" fill="#c0392b"/>
+  <text x="250" y="255" text-anchor="middle" fill="white" font-size="11" font-weight="bold">2</text>
+  <text x="250" y="235" text-anchor="middle" fill="#333" font-size="8">Canal Tour</text>
+  <circle cx="350" cy="200" r="12" fill="#c0392b"/>
+  <text x="350" y="205" text-anchor="middle" fill="white" font-size="11" font-weight="bold">3</text>
+  <text x="350" y="185" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Amalienborg</text>
+  <circle cx="420" cy="150" r="12" fill="#c0392b"/>
+  <text x="420" y="155" text-anchor="middle" fill="white" font-size="11" font-weight="bold">4</text>
+  <text x="420" y="135" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Designmuseum</text>
+  <circle cx="500" cy="120" r="12" fill="#c0392b"/>
+  <text x="500" y="125" text-anchor="middle" fill="white" font-size="11" font-weight="bold">5</text>
+  <text x="500" y="105" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Kastellet</text>
+  <circle cx="530" cy="100" r="12" fill="#c0392b"/>
+  <text x="530" y="105" text-anchor="middle" fill="white" font-size="11" font-weight="bold">6</text>
+  <text x="560" y="85" text-anchor="middle" fill="#333" font-size="8">Little Mermaid</text>
+  <rect x="180" y="255" width="18" height="18" rx="3" fill="#6F4E37"/>
+  <text x="189" y="268" text-anchor="middle" fill="white" font-size="10" font-weight="bold">C</text>
+  <rect x="370" y="185" width="18" height="18" rx="3" fill="#6F4E37"/>
+  <text x="379" y="198" text-anchor="middle" fill="white" font-size="10" font-weight="bold">C</text>
+  <rect x="15" y="340" width="180" height="50" rx="5" fill="white" stroke="#ddd"/>
+  <circle cx="30" cy="355" r="5" fill="#c0392b"/>
+  <text x="40" y="359" fill="#333" font-size="8">Numbered stop</text>
+  <rect x="25" y="367" width="10" height="10" rx="2" fill="#2980b9"/>
+  <text x="40" y="376" fill="#333" font-size="8">Hotel</text>
+  <rect x="95" y="347" width="10" height="10" rx="2" fill="#6F4E37"/>
+  <text x="110" y="357" fill="#333" font-size="8">Coffee</text>
+  <line x1="95" y1="375" x2="115" y2="375" stroke="#e74c3c" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="120" y="379" fill="#333" font-size="8">Walking route</text>
+</svg>
+          </div>
+
           <div class="stop">
             <div class="stop-num">1</div>
             <div class="stop-content">
-              <div class="stop-name">Nyhavn</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Nyhavn+Copenhagen" target="_blank" rel="noopener">Nyhavn</a></div>
               <div class="stop-timing">Start here — mid-morning · 30–45 min</div>
               <div class="stop-desc">Copenhagen's most iconic view — colourful 17th-century townhouses lining a canal packed with wooden sailing boats. Hans Christian Andersen lived in three different houses here. Cafés and restaurants line both sides, but better value on the sunny (south) side.</div>
               <div class="stop-tips">
@@ -422,7 +699,7 @@
           <div class="stop">
             <div class="stop-num">2</div>
             <div class="stop-content">
-              <div class="stop-name">Canal Boat Tour</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Nyhavn+Canal+Tours+Copenhagen" target="_blank" rel="noopener">Canal Boat Tour</a></div>
               <div class="stop-timing">Mid-morning · 60 min</div>
               <div class="stop-desc">The best way to see Copenhagen from the water. Boats depart from Nyhavn and cruise past the Opera House, Christianshavn, Black Diamond Library, Christiansborg, and the Little Mermaid. Commentary in English and Danish. Covered by Copenhagen Card.</div>
               <div class="stop-tips">
@@ -435,7 +712,7 @@
           <div class="stop">
             <div class="stop-num">3</div>
             <div class="stop-content">
-              <div class="stop-name">Amalienborg Palace</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Amalienborg+Palace+Copenhagen" target="_blank" rel="noopener">Amalienborg Palace</a></div>
               <div class="stop-timing">Around midday · 30–45 min</div>
               <div class="stop-desc">The Danish Royal Family's winter residence — four identical rococo palaces around an octagonal courtyard. The changing of the Royal Guard happens at noon daily and is free to watch. The palace museum shows royal apartments from the 1800s.</div>
               <div class="stop-tips">
@@ -448,7 +725,7 @@
           <div class="stop">
             <div class="stop-num">4</div>
             <div class="stop-content">
-              <div class="stop-name">Designmuseum Danmark</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Designmuseum+Danmark+Copenhagen" target="_blank" rel="noopener">Designmuseum Danmark</a></div>
               <div class="stop-timing">After Amalienborg · 45–60 min</div>
               <div class="stop-desc">World-class collection of Danish and international design — furniture, fashion, posters, and industrial design. Housed in a beautiful 18th-century rococo building. The Danish chair collection alone is worth the visit. Great museum shop.</div>
               <div class="stop-tips">
@@ -461,7 +738,7 @@
           <div class="stop">
             <div class="stop-num">5</div>
             <div class="stop-content">
-              <div class="stop-name">Kastellet</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Kastellet+Copenhagen" target="_blank" rel="noopener">Kastellet</a></div>
               <div class="stop-timing">Afternoon · 20–30 min</div>
               <div class="stop-desc">One of the best-preserved star fortresses in Northern Europe, still an active military base. Walk the ramparts for great harbour views, wander the tree-lined paths, and see the beautiful old barracks. Free to enter. The windmill on the ramparts is a highlight.</div>
               <div class="stop-tips">
@@ -474,7 +751,7 @@
           <div class="stop">
             <div class="stop-num">6</div>
             <div class="stop-content">
-              <div class="stop-name">The Little Mermaid</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=The+Little+Mermaid+Copenhagen" target="_blank" rel="noopener">The Little Mermaid</a></div>
               <div class="stop-timing">Afternoon · 15–20 min</div>
               <div class="stop-desc">Copenhagen's most famous landmark — a bronze statue on a rock at the waterside since 1913, inspired by Hans Christian Andersen's fairy tale. She's smaller than you expect but worth seeing once. Gets very crowded — arrive early or late to avoid the worst crush.</div>
               <div class="stop-tips">
@@ -487,18 +764,49 @@
           <div class="coffee-section">
             <div class="coffee-header">☕ Coffee stops nearby</div>
             <div class="coffee-spot">
-              <div class="coffee-name">Democratic Coffee</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=Democratic+Coffee+Copenhagen" target="_blank" rel="noopener">Democratic Coffee</a></div>
               <div class="coffee-rating">4.5 ★ (600+ reviews)</div>
               <div class="coffee-addr">Krystalgade 21 — near Kongens Nytorv/Nyhavn end</div>
               <div class="coffee-desc">Bright, airy specialty coffee bar with some of the friendliest baristas in the city. Excellent flat whites and pour-overs. A short walk from Nyhavn before you start the route.</div>
             </div>
             <div class="coffee-spot">
-              <div class="coffee-name">The Coffee Factory</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=The+Coffee+Factory+Gothersgade+Copenhagen" target="_blank" rel="noopener">The Coffee Factory</a></div>
               <div class="coffee-rating">4.4 ★ (450+ reviews)</div>
               <div class="coffee-addr">Gothersgade 21 — between Nyhavn and Amalienborg</div>
               <div class="coffee-desc">Cosy neighbourhood café on the route between stops. Good espresso drinks, freshly baked pastries, and a relaxed vibe. Popular with locals on their morning commute.</div>
             </div>
           </div>
+
+          <div class="food-section">
+            <div class="food-header">🍽️ Lunch & Dinner</div>
+            <div class="food-sub-header lunch">Lunch</div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Schønnemann+Copenhagen" target="_blank" rel="noopener">Schønnemann</a></div>
+              <div class="food-rating">4.7 ★ (est. 1877)</div>
+              <div class="food-addr">Hauser Plads 16 — 5 min walk from hotel</div>
+              <div class="food-desc">Copenhagen's most famous smørrebrød restaurant since 1877. Traditional open sandwiches done perfectly — herring, prawns, roast beef. A must-do Danish lunch. Book ahead.</div>
+            </div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Broens+Gadekøkken+Copenhagen" target="_blank" rel="noopener">Broens Street Food</a></div>
+              <div class="food-rating">4.3 ★</div>
+              <div class="food-addr">Strandgade 95 — by the inner harbour bridge</div>
+              <div class="food-desc">Street food market right across from Nyhavn with harbour views. Global food stalls — tacos, ramen, poke bowls. Great for families since everyone picks their own.</div>
+            </div>
+            <div class="food-sub-header dinner">Dinner</div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Restaurant+Kanalen+Copenhagen" target="_blank" rel="noopener">Kanalen</a></div>
+              <div class="food-rating">4.3 ★ — MICHELIN listed</div>
+              <div class="food-addr">Wilders Plads 2, Christianshavn — 10 min walk</div>
+              <div class="food-desc">Canal-side dining in a former customs house. Seasonal Nordic seafood and Danish classics. Beautiful terrace in summer. Book ahead.</div>
+            </div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Gasoline+Grill+Copenhagen" target="_blank" rel="noopener">Gasoline Grill</a></div>
+              <div class="food-rating">4.5 ★ (6,476 reviews)</div>
+              <div class="food-addr">Multiple locations — Strandgade 95 (nearest)</div>
+              <div class="food-desc">Widely considered Copenhagen's best burgers. Simple menu, quality ingredients, quick service. The kids will love it.</div>
+            </div>
+          </div>
+
 
         </div>
       </details>
@@ -518,10 +826,56 @@
             Good in rain · The historic heart of Copenhagen — this route threads through the city's medieval core and works brilliantly on a rainy day since most stops are indoors. Start with a stroll down Strøget (Europe's longest pedestrian street), climb the Round Tower for city views, then explore Christiansborg Palace and the National Museum. Finish at atmospheric Gammel Strand before heading to Tivoli for the evening. Everything is within 15 minutes' walk of the hotel.
           </div>
 
+          <div class="day-map">
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" style="background:#f0f4f8">
+  <style>text { font-family: Arial, Helvetica, sans-serif; }</style>
+  <ellipse cx="500" cy="350" rx="120" ry="60" fill="#d4e6f1" opacity="0.5"/>
+  <text x="500" y="355" text-anchor="middle" fill="#85929e" font-size="10" font-style="italic">Harbour</text>
+  <line x1="80" y1="180" x2="350" y2="180" stroke="#ccc" stroke-width="8" stroke-linecap="round"/>
+  <text x="215" y="175" text-anchor="middle" fill="#aaa" font-size="9">Strøget</text>
+  <line x1="200" y1="80" x2="200" y2="300" stroke="#ddd" stroke-width="4"/>
+  <path d="M 450,120 L 350,160 L 250,180 L 200,180 L 200,140 L 200,180 L 150,200 L 250,280 L 350,300 L 450,320" fill="none" stroke="#e74c3c" stroke-width="2" stroke-dasharray="8,4"/>
+  <rect x="440" y="105" width="24" height="24" rx="4" fill="#2980b9"/>
+  <text x="452" y="122" text-anchor="middle" fill="white" font-size="12" font-weight="bold">H</text>
+  <text x="452" y="100" text-anchor="middle" fill="#2980b9" font-size="8" font-weight="bold">HOTEL</text>
+  <circle cx="250" cy="180" r="12" fill="#c0392b"/>
+  <text x="250" y="185" text-anchor="middle" fill="white" font-size="11" font-weight="bold">1</text>
+  <text x="250" y="165" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Strøget</text>
+  <circle cx="200" cy="130" r="12" fill="#c0392b"/>
+  <text x="200" y="135" text-anchor="middle" fill="white" font-size="11" font-weight="bold">2</text>
+  <text x="200" y="115" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Round Tower</text>
+  <circle cx="250" cy="280" r="12" fill="#c0392b"/>
+  <text x="250" y="285" text-anchor="middle" fill="white" font-size="11" font-weight="bold">3</text>
+  <text x="250" y="300" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Christiansborg</text>
+  <circle cx="150" cy="210" r="12" fill="#c0392b"/>
+  <text x="150" y="215" text-anchor="middle" fill="white" font-size="11" font-weight="bold">4</text>
+  <text x="110" y="230" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">National Museum</text>
+  <circle cx="190" cy="270" r="12" fill="#c0392b"/>
+  <text x="190" y="275" text-anchor="middle" fill="white" font-size="11" font-weight="bold">5</text>
+  <text x="140" y="280" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Gammel Strand</text>
+  <rect x="340" y="310" width="24" height="24" rx="4" fill="#f39c12" opacity="0.8"/>
+  <text x="352" y="327" text-anchor="middle" fill="white" font-size="10" font-weight="bold">T</text>
+  <text x="352" y="345" text-anchor="middle" fill="#f39c12" font-size="9" font-weight="bold">Tivoli</text>
+  <rect x="280" y="155" width="18" height="18" rx="3" fill="#6F4E37"/>
+  <text x="289" y="168" text-anchor="middle" fill="white" font-size="10" font-weight="bold">C</text>
+  <rect x="170" y="145" width="18" height="18" rx="3" fill="#6F4E37"/>
+  <text x="179" y="158" text-anchor="middle" fill="white" font-size="10" font-weight="bold">C</text>
+  <rect x="15" y="340" width="180" height="50" rx="5" fill="white" stroke="#ddd"/>
+  <circle cx="30" cy="355" r="5" fill="#c0392b"/>
+  <text x="40" y="359" fill="#333" font-size="8">Numbered stop</text>
+  <rect x="25" y="367" width="10" height="10" rx="2" fill="#2980b9"/>
+  <text x="40" y="376" fill="#333" font-size="8">Hotel</text>
+  <rect x="95" y="347" width="10" height="10" rx="2" fill="#6F4E37"/>
+  <text x="110" y="357" fill="#333" font-size="8">Coffee</text>
+  <line x1="95" y1="375" x2="115" y2="375" stroke="#e74c3c" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="120" y="379" fill="#333" font-size="8">Walking route</text>
+</svg>
+          </div>
+
           <div class="stop">
             <div class="stop-num">1</div>
             <div class="stop-content">
-              <div class="stop-name">Strøget</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Strøget+Copenhagen" target="_blank" rel="noopener">Strøget</a></div>
               <div class="stop-timing">Start mid-morning · 45–60 min</div>
               <div class="stop-desc">Europe's longest pedestrian shopping street — stretches 1.1 km from Rådhuspladsen to Kongens Nytorv. Street performers, Danish design shops, and LEGO flagship store along the way.</div>
               <div class="stop-tips">
@@ -534,7 +888,7 @@
           <div class="stop">
             <div class="stop-num">2</div>
             <div class="stop-content">
-              <div class="stop-name">Round Tower (Rundetaarn)</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Rundetaarn+Copenhagen" target="_blank" rel="noopener">Round Tower (Rundetaarn)</a></div>
               <div class="stop-timing">Late morning · 30–45 min</div>
               <div class="stop-desc">Built in 1642 as an astronomical observatory. Instead of stairs, you walk up a unique 209-metre spiral ramp — wide enough that a horse and carriage once drove up it. Panoramic views from the top.</div>
               <div class="stop-tips">
@@ -547,7 +901,7 @@
           <div class="stop">
             <div class="stop-num">3</div>
             <div class="stop-content">
-              <div class="stop-name">Christiansborg Palace</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Christiansborg+Palace+Copenhagen" target="_blank" rel="noopener">Christiansborg Palace</a></div>
               <div class="stop-timing">Around midday · 60–90 min</div>
               <div class="stop-desc">Denmark's seat of power — parliament, prime minister's office, and Supreme Court all under one roof. The tower is free and offers the best panoramic views in Copenhagen, even better than Round Tower.</div>
               <div class="stop-tips">
@@ -560,7 +914,7 @@
           <div class="stop">
             <div class="stop-num">4</div>
             <div class="stop-content">
-              <div class="stop-name">National Museum</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Nationalmuseet+Copenhagen" target="_blank" rel="noopener">National Museum</a></div>
               <div class="stop-timing">Early afternoon · 60–90 min</div>
               <div class="stop-desc">Denmark's largest museum of cultural history. Outstanding Viking collection, rune stones, and a brilliant free children's museum where kids can try on armour and play in a Viking ship.</div>
               <div class="stop-tips">
@@ -573,7 +927,7 @@
           <div class="stop">
             <div class="stop-num">5</div>
             <div class="stop-content">
-              <div class="stop-name">Gammel Strand</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Gammel+Strand+Copenhagen" target="_blank" rel="noopener">Gammel Strand</a></div>
               <div class="stop-timing">Mid-afternoon · 20–30 min</div>
               <div class="stop-desc">Atmospheric canal-side square — the old fish market. Now home to good restaurants and a lovely spot to sit and watch canal boats pass. Great for a late lunch or afternoon snack.</div>
               <div class="stop-tips">
@@ -586,24 +940,62 @@
           <div class="coffee-section">
             <div class="coffee-header">☕ Coffee stops nearby</div>
             <div class="coffee-spot">
-              <div class="coffee-name">Coffee Collective</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=Coffee+Collective+Kristen+Bernikows+Gade+Copenhagen" target="_blank" rel="noopener">Coffee Collective</a></div>
               <div class="coffee-rating">4.6 ★ (1,534 reviews)</div>
               <div class="coffee-addr">Kristen Bernikows Gade 2 — just off Strøget</div>
               <div class="coffee-desc">Copenhagen's pioneering specialty roaster, in a beautifully converted old bodega. The cardamom buns are legendary. Charming inner courtyard if the weather's decent.</div>
             </div>
             <div class="coffee-spot">
-              <div class="coffee-name">April Coffee</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=April+Coffee+Pilestræde+Copenhagen" target="_blank" rel="noopener">April Coffee</a></div>
               <div class="coffee-rating">4.7 ★ (263 reviews)</div>
               <div class="coffee-addr">Pilestræde 39 — 2 min from Round Tower</div>
               <div class="coffee-desc">World-class specialty coffee in a minimalist showroom inside a clothing store. Extremely limited seating but the coffee is exceptional — clean, balanced, full of character.</div>
             </div>
             <div class="coffee-spot">
-              <div class="coffee-name">La Cabra</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=La+Cabra+Møntergade+Copenhagen" target="_blank" rel="noopener">La Cabra</a></div>
               <div class="coffee-rating">4.5 ★ on Google</div>
               <div class="coffee-addr">Møntergade 3A — near Round Tower</div>
               <div class="coffee-desc">Cult-following Danish roaster. Also inside a clothing store (Another Aspect) with very limited seating. Go for the coffee, not the ambience — it's outstanding.</div>
             </div>
           </div>
+
+          <div class="food-section">
+            <div class="food-header">🍽️ Lunch & Dinner</div>
+            <div class="food-sub-header lunch">Lunch</div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Domhusets+Smørrebrød+Copenhagen" target="_blank" rel="noopener">Domhusets Smørrebrød</a></div>
+              <div class="food-rating">4.8 ★</div>
+              <div class="food-addr">Kattesundet 18 — near Christiansborg</div>
+              <div class="food-desc">Brilliant traditional smørrebrød in a cosy basement. Locals queue here for lunch — generous portions, beautifully presented. Great value.</div>
+            </div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Selma+Møntergade+Copenhagen" target="_blank" rel="noopener">Selma</a></div>
+              <div class="food-rating">4.6 ★</div>
+              <div class="food-addr">Møntergade 19 — near Round Tower</div>
+              <div class="food-desc">Modern reinvention of smørrebrød by a Swedish chef. Each open sandwich is a work of art. Small, stylish spot.</div>
+            </div>
+            <div class="food-sub-header street">Street food</div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Gasoline+Grill+Niels+Hemmingsens+Gade+Copenhagen" target="_blank" rel="noopener">Gasoline Grill (Indre By)</a></div>
+              <div class="food-rating">4.1 ★</div>
+              <div class="food-addr">Niels Hemmingsens Gade 20 — off Strøget</div>
+              <div class="food-desc">Quick, excellent burgers right in the Strøget area. Perfect if the kids are flagging and you need fast, quality food.</div>
+            </div>
+            <div class="food-sub-header dinner">Dinner</div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Aamanns+1921+Copenhagen" target="_blank" rel="noopener">Aamanns 1921</a></div>
+              <div class="food-rating">4.5 ★ — Michelin recommended</div>
+              <div class="food-addr">Niels Hemmingsens Gade 19–21</div>
+              <div class="food-desc">Modern Danish cuisine from the smørrebrød master. Evening menu goes beyond open sandwiches into full Nordic courses. Elegant but relaxed. Book ahead.</div>
+            </div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Tivoli+Gardens+Copenhagen" target="_blank" rel="noopener">Tivoli Gardens dining</a></div>
+              <div class="food-rating">Various</div>
+              <div class="food-addr">Inside Tivoli — multiple restaurants</div>
+              <div class="food-desc">If you're doing Tivoli in the evening, eat inside the park. Grøften (est. 1874) does classic Danish, or the food court has pizza, burgers, and Asian options.</div>
+            </div>
+          </div>
+
 
           <div class="evening-section">
             <div class="evening-title">🌙 Evening: Tivoli Gardens</div>
@@ -628,10 +1020,58 @@
             Any weather · A day that mixes indoor culture with green spaces — works in any weather since you can flex between gardens (sunshine) and galleries (rain). Start with breakfast at Torvehallerne food market, see the Crown Jewels at Rosenborg, browse 700 years of art at SMK, wander the Botanical Garden, then cross the lakes into trendy Nørrebro for street food and the atmospheric Assistens Cemetery. About 20 min walk from the hotel to the first stop, or one Metro stop to Nørreport.
           </div>
 
+          <div class="day-map">
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" style="background:#f0f4f8">
+  <style>text { font-family: Arial, Helvetica, sans-serif; }</style>
+  <rect x="180" y="150" width="120" height="80" rx="10" fill="#d5f5e3" opacity="0.4"/>
+  <text x="240" y="195" text-anchor="middle" fill="#27ae60" font-size="8" font-style="italic">King's Garden</text>
+  <rect x="130" y="60" width="100" height="60" rx="10" fill="#d5f5e3" opacity="0.4"/>
+  <text x="180" y="95" text-anchor="middle" fill="#27ae60" font-size="8" font-style="italic">Botanical Garden</text>
+  <path d="M 350,100 Q 370,200 350,320" fill="none" stroke="#85c1e9" stroke-width="12" opacity="0.4"/>
+  <text x="375" y="200" fill="#5dade2" font-size="8" font-style="italic">Lakes</text>
+  <path d="M 450,350 L 300,280 L 240,200 L 240,170 L 200,120 L 180,90 L 400,60 L 480,120" fill="none" stroke="#e74c3c" stroke-width="2" stroke-dasharray="8,4"/>
+  <rect x="438" y="338" width="24" height="24" rx="4" fill="#2980b9"/>
+  <text x="450" y="355" text-anchor="middle" fill="white" font-size="12" font-weight="bold">H</text>
+  <text x="450" y="333" text-anchor="middle" fill="#2980b9" font-size="8" font-weight="bold">HOTEL</text>
+  <circle cx="300" cy="280" r="12" fill="#c0392b"/>
+  <text x="300" y="285" text-anchor="middle" fill="white" font-size="11" font-weight="bold">1</text>
+  <text x="300" y="305" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Torvehallerne</text>
+  <circle cx="240" cy="200" r="12" fill="#c0392b"/>
+  <text x="240" y="205" text-anchor="middle" fill="white" font-size="11" font-weight="bold">2</text>
+  <text x="280" y="220" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Rosenborg</text>
+  <circle cx="200" cy="130" r="12" fill="#c0392b"/>
+  <text x="200" y="135" text-anchor="middle" fill="white" font-size="11" font-weight="bold">3</text>
+  <text x="155" y="140" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">SMK</text>
+  <circle cx="170" cy="80" r="12" fill="#c0392b"/>
+  <text x="170" y="85" text-anchor="middle" fill="white" font-size="11" font-weight="bold">4</text>
+  <text x="130" y="55" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Botanical Garden</text>
+  <circle cx="420" cy="60" r="12" fill="#c0392b"/>
+  <text x="420" y="65" text-anchor="middle" fill="white" font-size="11" font-weight="bold">5</text>
+  <text x="420" y="48" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Nørrebro</text>
+  <circle cx="480" cy="120" r="12" fill="#c0392b"/>
+  <text x="480" y="125" text-anchor="middle" fill="white" font-size="11" font-weight="bold">6</text>
+  <text x="530" y="115" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Assistens</text>
+  <text x="530" y="127" text-anchor="middle" fill="#333" font-size="8">Cemetery</text>
+  <rect x="310" y="260" width="18" height="18" rx="3" fill="#6F4E37"/>
+  <text x="319" y="273" text-anchor="middle" fill="white" font-size="10" font-weight="bold">C</text>
+  <rect x="440" y="70" width="18" height="18" rx="3" fill="#6F4E37"/>
+  <text x="449" y="83" text-anchor="middle" fill="white" font-size="10" font-weight="bold">C</text>
+  <rect x="15" y="340" width="180" height="50" rx="5" fill="white" stroke="#ddd"/>
+  <circle cx="30" cy="355" r="5" fill="#c0392b"/>
+  <text x="40" y="359" fill="#333" font-size="8">Numbered stop</text>
+  <rect x="25" y="367" width="10" height="10" rx="2" fill="#2980b9"/>
+  <text x="40" y="376" fill="#333" font-size="8">Hotel</text>
+  <rect x="95" y="347" width="10" height="10" rx="2" fill="#6F4E37"/>
+  <text x="110" y="357" fill="#333" font-size="8">Coffee</text>
+  <line x1="95" y1="375" x2="115" y2="375" stroke="#e74c3c" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="120" y="379" fill="#333" font-size="8">Walking route</text>
+</svg>
+          </div>
+
           <div class="stop">
             <div class="stop-num">1</div>
             <div class="stop-content">
-              <div class="stop-name">Torvehallerne Market</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Torvehallerne+Copenhagen" target="_blank" rel="noopener">Torvehallerne Market</a></div>
               <div class="stop-timing">Start here — breakfast · 45–60 min</div>
               <div class="stop-desc">Copenhagen's famous covered food market — 60+ stalls under two glass halls. Perfect for breakfast: fresh pastries, smørrebrød, smoothie bowls, and Coffee Collective's Torvehallerne outpost.</div>
               <div class="stop-tips">
@@ -644,7 +1084,7 @@
           <div class="stop">
             <div class="stop-num">2</div>
             <div class="stop-content">
-              <div class="stop-name">Rosenborg Castle</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Rosenborg+Castle+Copenhagen" target="_blank" rel="noopener">Rosenborg Castle</a></div>
               <div class="stop-timing">Mid-morning · 60–90 min</div>
               <div class="stop-desc">A beautiful 17th-century Renaissance castle built by Christian IV. Home to the Danish Crown Jewels in the basement treasury, plus lavishly decorated royal rooms upstairs. Set in the lovely King's Garden.</div>
               <div class="stop-tips">
@@ -657,7 +1097,7 @@
           <div class="stop">
             <div class="stop-num">3</div>
             <div class="stop-content">
-              <div class="stop-name">SMK National Gallery</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=SMK+National+Gallery+Copenhagen" target="_blank" rel="noopener">SMK National Gallery</a></div>
               <div class="stop-timing">Late morning · 45–90 min</div>
               <div class="stop-desc">Denmark's largest art museum — 700 years of art from the Danish Golden Age to contemporary. The permanent collection is free. Right next door to Rosenborg, so an easy add-on.</div>
               <div class="stop-tips">
@@ -670,7 +1110,7 @@
           <div class="stop">
             <div class="stop-num">4</div>
             <div class="stop-content">
-              <div class="stop-name">Botanical Garden</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Botanical+Garden+Copenhagen" target="_blank" rel="noopener">Botanical Garden</a></div>
               <div class="stop-timing">Early afternoon · 30–45 min</div>
               <div class="stop-desc">Free to enter, with beautiful 19th-century glasshouses that work perfectly in the rain. The Palm House is the highlight — a spectacular Victorian-era iron and glass structure full of tropical plants.</div>
               <div class="stop-tips">
@@ -683,7 +1123,7 @@
           <div class="stop">
             <div class="stop-num">5</div>
             <div class="stop-content">
-              <div class="stop-name">Nørrebro Neighbourhood</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Jægersborggade+Copenhagen" target="_blank" rel="noopener">Nørrebro Neighbourhood</a></div>
               <div class="stop-timing">Afternoon · 60–90 min</div>
               <div class="stop-desc">Copenhagen's most diverse and vibrant neighbourhood. Jægersborggade is the key street — independent shops, ceramics studios, craft beer bars, and some of the city's best cafés all in one block.</div>
               <div class="stop-tips">
@@ -696,7 +1136,7 @@
           <div class="stop">
             <div class="stop-num">6</div>
             <div class="stop-content">
-              <div class="stop-name">Assistens Cemetery</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Assistens+Cemetery+Copenhagen" target="_blank" rel="noopener">Assistens Cemetery</a></div>
               <div class="stop-timing">Late afternoon · 20–30 min</div>
               <div class="stop-desc">Not as morbid as it sounds — locals use this as a park. Hans Christian Andersen and Søren Kierkegaard are buried here. Tree-lined paths, benches, and a surprisingly peaceful atmosphere.</div>
               <div class="stop-tips">
@@ -709,24 +1149,55 @@
           <div class="coffee-section">
             <div class="coffee-header">☕ Coffee stops nearby</div>
             <div class="coffee-spot">
-              <div class="coffee-name">Coffee Collective (Torvehallerne)</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=Coffee+Collective+Torvehallerne+Copenhagen" target="_blank" rel="noopener">Coffee Collective (Torvehallerne)</a></div>
               <div class="coffee-rating">4.6 ★ (1,000+ reviews)</div>
               <div class="coffee-addr">Torvehallerne, Frederiksborggade 21 — at Stop 1</div>
               <div class="coffee-desc">The original and best Torvehallerne stall. Copenhagen's pioneering specialty roaster — perfect flat whites and excellent pastries. Grab one to walk around the market with.</div>
             </div>
             <div class="coffee-spot">
-              <div class="coffee-name">Darcy's Kaffe</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=Darcys+Kaffe+Copenhagen" target="_blank" rel="noopener">Darcy's Kaffe</a></div>
               <div class="coffee-rating">4.6 ★ (663 reviews)</div>
               <div class="coffee-addr">Rantzausgade 2, Nørrebro — near Stop 5</div>
               <div class="coffee-desc">One of the city's finest coffee bars. Owner Darcy curates beans from the world's best roasters — April, Koppi, La Cabra, Coffee Collective — and serves them with a smile and perfect pastries.</div>
             </div>
             <div class="coffee-spot">
-              <div class="coffee-name">Andersen & Maillard</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=Andersen+Maillard+Copenhagen" target="_blank" rel="noopener">Andersen & Maillard</a></div>
               <div class="coffee-rating">4.5 ★ (800+ reviews)</div>
               <div class="coffee-addr">Nørrebrogade 62, Nørrebro — near Stop 5</div>
               <div class="coffee-desc">Combined café, roastery, and exceptional bakery in a converted bank. They roast their own beans, and the croissants are ranked among Copenhagen's best. Worth a detour.</div>
             </div>
           </div>
+
+          <div class="food-section">
+            <div class="food-header">🍽️ Lunch & Dinner</div>
+            <div class="food-sub-header lunch">Lunch</div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Torvehallerne+Copenhagen" target="_blank" rel="noopener">Torvehallerne Market</a></div>
+              <div class="food-rating">Multiple stalls</div>
+              <div class="food-addr">Frederiksborggade 21 — at Stop 1</div>
+              <div class="food-desc">You'll be here for breakfast, but it also works for lunch. 60+ stalls: smørrebrød, tacos, acai bowls, gourmet hot dogs. Grilled cheese at Ma Poule is excellent.</div>
+            </div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Mirabelle+Guldbergsgade+Copenhagen" target="_blank" rel="noopener">Mirabelle (at Bæst)</a></div>
+              <div class="food-rating">4.5 ★</div>
+              <div class="food-addr">Guldbergsgade 29, Nørrebro</div>
+              <div class="food-desc">Bakery attached to Bæst restaurant. Outstanding sourdough pizza slices, pastries, and sandwiches for takeaway. Perfect casual lunch in Nørrebro.</div>
+            </div>
+            <div class="food-sub-header dinner">Dinner</div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Bæst+Copenhagen" target="_blank" rel="noopener">Bæst</a></div>
+              <div class="food-rating">4.5 ★</div>
+              <div class="food-addr">Guldbergsgade 29, Nørrebro</div>
+              <div class="food-desc">Organic Italian by a former Noma chef. They make their own mozzarella and cured meats. Superb sourdough pizzas. The kids will demolish the Margherita. Book ahead.</div>
+            </div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Oysters+Grill+Nørrebro+Copenhagen" target="_blank" rel="noopener">Oysters & Grill</a></div>
+              <div class="food-rating">4.2 ★</div>
+              <div class="food-addr">Sjællandsgade 1, Nørrebro</div>
+              <div class="food-desc">Rustic seafood bar with a relaxed atmosphere. Great oysters and grilled fish. Good for a nicer dinner that doesn't feel stuffy.</div>
+            </div>
+          </div>
+
 
         </div>
       </details>
@@ -746,10 +1217,49 @@
             Any weather · Christianshavn is Copenhagen's canal-laced neighbourhood across the harbour — quieter, more residential, with a completely different atmosphere. Wander the canals, climb the famous spiral tower at Church of Our Saviour, explore the alternative Freetown Christiania, and finish with street food at Reffen on the waterfront. A more relaxed pace than the city centre days.
           </div>
 
+          <div class="day-map">
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" style="background:#f0f4f8">
+  <style>text { font-family: Arial, Helvetica, sans-serif; }</style>
+  <path d="M 100,150 Q 200,100 350,120 Q 450,130 550,100" fill="none" stroke="#85c1e9" stroke-width="15" opacity="0.3"/>
+  <text x="300" y="110" text-anchor="middle" fill="#5dade2" font-size="9" font-style="italic">Christianshavn Canal</text>
+  <rect x="400" y="250" width="180" height="120" rx="10" fill="#d4e6f1" opacity="0.3"/>
+  <text x="490" y="320" text-anchor="middle" fill="#5dade2" font-size="9" font-style="italic">Harbour</text>
+  <path d="M 150,50 L 200,150 L 280,200 L 350,170 L 430,250 L 500,280" fill="none" stroke="#e74c3c" stroke-width="2" stroke-dasharray="8,4"/>
+  <rect x="138" y="38" width="24" height="24" rx="4" fill="#2980b9"/>
+  <text x="150" y="55" text-anchor="middle" fill="white" font-size="12" font-weight="bold">H</text>
+  <text x="150" y="33" text-anchor="middle" fill="#2980b9" font-size="8" font-weight="bold">HOTEL</text>
+  <circle cx="200" cy="150" r="12" fill="#c0392b"/>
+  <text x="200" y="155" text-anchor="middle" fill="white" font-size="11" font-weight="bold">1</text>
+  <text x="200" y="175" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Canals</text>
+  <circle cx="280" cy="200" r="12" fill="#c0392b"/>
+  <text x="280" y="205" text-anchor="middle" fill="white" font-size="11" font-weight="bold">2</text>
+  <text x="330" y="225" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Our Saviour</text>
+  <circle cx="350" cy="170" r="12" fill="#c0392b"/>
+  <text x="350" y="175" text-anchor="middle" fill="white" font-size="11" font-weight="bold">3</text>
+  <text x="350" y="155" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Christiania</text>
+  <circle cx="500" cy="280" r="12" fill="#c0392b"/>
+  <text x="500" y="285" text-anchor="middle" fill="white" font-size="11" font-weight="bold">4</text>
+  <text x="500" y="265" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Reffen</text>
+  <rect x="220" y="140" width="18" height="18" rx="3" fill="#6F4E37"/>
+  <text x="229" y="153" text-anchor="middle" fill="white" font-size="10" font-weight="bold">C</text>
+  <rect x="310" y="185" width="18" height="18" rx="3" fill="#6F4E37"/>
+  <text x="319" y="198" text-anchor="middle" fill="white" font-size="10" font-weight="bold">C</text>
+  <rect x="15" y="340" width="180" height="50" rx="5" fill="white" stroke="#ddd"/>
+  <circle cx="30" cy="355" r="5" fill="#c0392b"/>
+  <text x="40" y="359" fill="#333" font-size="8">Numbered stop</text>
+  <rect x="25" y="367" width="10" height="10" rx="2" fill="#2980b9"/>
+  <text x="40" y="376" fill="#333" font-size="8">Hotel</text>
+  <rect x="95" y="347" width="10" height="10" rx="2" fill="#6F4E37"/>
+  <text x="110" y="357" fill="#333" font-size="8">Coffee</text>
+  <line x1="95" y1="375" x2="115" y2="375" stroke="#e74c3c" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="120" y="379" fill="#333" font-size="8">Walking route</text>
+</svg>
+          </div>
+
           <div class="stop">
             <div class="stop-num">1</div>
             <div class="stop-content">
-              <div class="stop-name">Christianshavn Canals</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Christianshavn+Copenhagen" target="_blank" rel="noopener">Christianshavn Canals</a></div>
               <div class="stop-timing">Start mid-morning · 30–45 min</div>
               <div class="stop-desc">Wander the tree-lined canals of Christianshavn — houseboats, colourful buildings, and a much quieter atmosphere than the main city centre. The area was built by Christian IV in the 1600s as a merchant's quarter.</div>
               <div class="stop-tips">
@@ -762,7 +1272,7 @@
           <div class="stop">
             <div class="stop-num">2</div>
             <div class="stop-content">
-              <div class="stop-name">Church of Our Saviour</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Church+of+Our+Saviour+Copenhagen" target="_blank" rel="noopener">Church of Our Saviour</a></div>
               <div class="stop-timing">Late morning · 45–60 min</div>
               <div class="stop-desc">The baroque church with the famous external spiral staircase winding around its 90-metre spire. Climb 400 steps for spectacular 360° views — the last section is outside, spiralling upward on a narrowing golden staircase. Not for the faint-hearted!</div>
               <div class="stop-tips">
@@ -775,7 +1285,7 @@
           <div class="stop">
             <div class="stop-num">3</div>
             <div class="stop-content">
-              <div class="stop-name">Freetown Christiania</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Christiania+Copenhagen" target="_blank" rel="noopener">Freetown Christiania</a></div>
               <div class="stop-timing">Around midday · 45–60 min</div>
               <div class="stop-desc">Copenhagen's famous alternative community, founded in 1971 on an abandoned military base. Street art, DIY architecture, organic cafés, live music venues, and a unique counterculture vibe. A fascinating social experiment.</div>
               <div class="stop-tips">
@@ -788,7 +1298,7 @@
           <div class="stop">
             <div class="stop-num">4</div>
             <div class="stop-content">
-              <div class="stop-name">Reffen Street Food Market</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Reffen+Copenhagen" target="_blank" rel="noopener">Reffen Street Food Market</a></div>
               <div class="stop-timing">Afternoon / early evening · 60–90 min</div>
               <div class="stop-desc">Copenhagen's biggest street food market — a sprawling waterfront space with 40+ food stalls from around the world. BBQ, tacos, Thai, Danish hot dogs, craft beer. Great harbour views and a relaxed festival atmosphere.</div>
               <div class="stop-tips">
@@ -801,18 +1311,49 @@
           <div class="coffee-section">
             <div class="coffee-header">☕ Coffee stops nearby</div>
             <div class="coffee-spot">
-              <div class="coffee-name">Original Coffee</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=Original+Coffee+Christianshavn+Copenhagen" target="_blank" rel="noopener">Original Coffee</a></div>
               <div class="coffee-rating">4.4 ★ on Google</div>
               <div class="coffee-addr">Overgaden Neden Vandet 41 — on the canal</div>
               <div class="coffee-desc">Canal-side café with charming crooked windows and views of Our Saviour's Church spire. Locally roasted beans, organic bakery goods. A lovely spot to sit and watch the boats.</div>
             </div>
             <div class="coffee-spot">
-              <div class="coffee-name">Prolog Coffee Bar</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=Prolog+Coffee+Bar+Copenhagen" target="_blank" rel="noopener">Prolog Coffee Bar</a></div>
               <div class="coffee-rating">4.2 ★ (Tripadvisor)</div>
               <div class="coffee-addr">Refshalevej area — near Reffen</div>
               <div class="coffee-desc">Award-winning Copenhagen roaster with a focus on single-origin beans and meticulous brewing. The baristas are passionate and knowledgeable. Chilled, quiet atmosphere.</div>
             </div>
           </div>
+
+          <div class="food-section">
+            <div class="food-header">🍽️ Lunch & Dinner</div>
+            <div class="food-sub-header lunch">Lunch</div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Morgenstedet+Christiania+Copenhagen" target="_blank" rel="noopener">Morgenstedet</a></div>
+              <div class="food-rating">4.3 ★</div>
+              <div class="food-addr">Fabriksområdet 134, inside Christiania</div>
+              <div class="food-desc">Legendary vegetarian café inside Christiania — serving fresh salads and hot dishes for over 20 years. One of Copenhagen's cheapest and most characterful lunch spots.</div>
+            </div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Reffen+Copenhagen" target="_blank" rel="noopener">Reffen Street Food</a></div>
+              <div class="food-rating">4.2 ★</div>
+              <div class="food-addr">Refshalevej 167A — at Stop 4</div>
+              <div class="food-desc">If you time it right, Reffen works for a late lunch as well as dinner. 40+ stalls — BBQ, Thai, Mexican, Danish hot dogs. Waterfront seating.</div>
+            </div>
+            <div class="food-sub-header dinner">Dinner</div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Restaurant+Kanalen+Copenhagen" target="_blank" rel="noopener">Restaurant Kanalen</a></div>
+              <div class="food-rating">4.3 ★ — MICHELIN listed</div>
+              <div class="food-addr">Wilders Plads 2, Christianshavn</div>
+              <div class="food-desc">Beautiful canal-side setting in a former customs house. Seasonal Nordic seafood and shared plates. Terrace dining in summer. Worth booking.</div>
+            </div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Donda+Christianshavn+Copenhagen" target="_blank" rel="noopener">Donda</a></div>
+              <div class="food-rating">4.4 ★</div>
+              <div class="food-addr">Torvegade 35, Christianshavn</div>
+              <div class="food-desc">Latin American seafood cooked over coals. Vibrant atmosphere, great cocktails. Something different from the Nordic norm. Good for teens.</div>
+            </div>
+          </div>
+
 
         </div>
       </details>
@@ -832,10 +1373,54 @@
             Best in sunshine · A sunshine day — best saved for the warmest weather. Start with a morning at Amager Beach Park (a proper sandy beach, easily reached by Metro in 15 min), then cross town to the beautiful Frederiksberg Gardens, peek at elephants and giraffes over the Zoo fence for free, and finish with an afternoon exploring the trendy Vesterbro neighbourhood. This day covers more ground than others — you'll use the Metro between stops.
           </div>
 
+          <div class="day-map">
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" style="background:#f0f4f8">
+  <style>text { font-family: Arial, Helvetica, sans-serif; }</style>
+  <rect x="420" y="250" width="170" height="100" rx="10" fill="#d4e6f1" opacity="0.3"/>
+  <text x="505" y="310" text-anchor="middle" fill="#5dade2" font-size="9" font-style="italic">Øresund</text>
+  <rect x="420" y="230" width="170" height="25" rx="5" fill="#f9e79f" opacity="0.4"/>
+  <text x="505" y="247" text-anchor="middle" fill="#d4ac0d" font-size="8" font-style="italic">Beach</text>
+  <ellipse cx="150" cy="200" rx="80" ry="60" fill="#d5f5e3" opacity="0.3"/>
+  <text x="150" y="210" text-anchor="middle" fill="#27ae60" font-size="8" font-style="italic">Frederiksberg Gardens</text>
+  <line x1="300" y1="50" x2="500" y2="250" stroke="#3498db" stroke-width="3" opacity="0.3"/>
+  <text x="420" y="140" fill="#3498db" font-size="8">Metro M2</text>
+  <path d="M 300,50 L 470,240 L 470,240 L 300,50 L 150,200 L 100,250 L 180,320" fill="none" stroke="#e74c3c" stroke-width="2" stroke-dasharray="8,4"/>
+  <rect x="288" y="38" width="24" height="24" rx="4" fill="#2980b9"/>
+  <text x="300" y="55" text-anchor="middle" fill="white" font-size="12" font-weight="bold">H</text>
+  <text x="300" y="33" text-anchor="middle" fill="#2980b9" font-size="8" font-weight="bold">HOTEL</text>
+  <circle cx="470" cy="240" r="12" fill="#c0392b"/>
+  <text x="470" y="245" text-anchor="middle" fill="white" font-size="11" font-weight="bold">1</text>
+  <text x="445" y="222" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Amager Beach</text>
+  <circle cx="150" cy="200" r="12" fill="#c0392b"/>
+  <text x="150" y="205" text-anchor="middle" fill="white" font-size="11" font-weight="bold">2</text>
+  <text x="150" y="175" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Frederiksberg</text>
+  <text x="150" y="185" text-anchor="middle" fill="#333" font-size="8">Gardens</text>
+  <circle cx="100" cy="250" r="12" fill="#c0392b"/>
+  <text x="100" y="255" text-anchor="middle" fill="white" font-size="11" font-weight="bold">3</text>
+  <text x="60" y="268" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Zoo fence</text>
+  <circle cx="180" cy="320" r="12" fill="#c0392b"/>
+  <text x="180" y="325" text-anchor="middle" fill="white" font-size="11" font-weight="bold">4</text>
+  <text x="180" y="345" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Vesterbro</text>
+  <rect x="490" y="240" width="18" height="18" rx="3" fill="#6F4E37"/>
+  <text x="499" y="253" text-anchor="middle" fill="white" font-size="10" font-weight="bold">C</text>
+  <rect x="160" y="310" width="18" height="18" rx="3" fill="#6F4E37"/>
+  <text x="169" y="323" text-anchor="middle" fill="white" font-size="10" font-weight="bold">C</text>
+  <rect x="350" y="340" width="180" height="50" rx="5" fill="white" stroke="#ddd"/>
+  <circle cx="365" cy="355" r="5" fill="#c0392b"/>
+  <text x="375" y="359" fill="#333" font-size="8">Numbered stop</text>
+  <rect x="360" y="367" width="10" height="10" rx="2" fill="#2980b9"/>
+  <text x="375" y="376" fill="#333" font-size="8">Hotel</text>
+  <rect x="430" y="347" width="10" height="10" rx="2" fill="#6F4E37"/>
+  <text x="445" y="357" fill="#333" font-size="8">Coffee</text>
+  <line x1="430" y1="375" x2="450" y2="375" stroke="#e74c3c" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="455" y="379" fill="#333" font-size="8">Route</text>
+</svg>
+          </div>
+
           <div class="stop">
             <div class="stop-num">1</div>
             <div class="stop-content">
-              <div class="stop-name">Amager Beach Park</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Amager+Strandpark+Copenhagen" target="_blank" rel="noopener">Amager Beach Park</a></div>
               <div class="stop-timing">Start here — morning · 2–3 hours</div>
               <div class="stop-desc">A proper sandy beach with shallow water, perfect for families. The artificial island (Amager Strandpark) has 2 km of beach, a lagoon, kayak rental, and beach volleyball. Metro M2 from Kongens Nytorv direct to Amager Strand station — 15 min.</div>
               <div class="stop-tips">
@@ -848,7 +1433,7 @@
           <div class="stop">
             <div class="stop-num">2</div>
             <div class="stop-content">
-              <div class="stop-name">Frederiksberg Gardens</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Frederiksberg+Gardens+Copenhagen" target="_blank" rel="noopener">Frederiksberg Gardens</a></div>
               <div class="stop-timing">Early afternoon · 45–60 min</div>
               <div class="stop-desc">Copenhagen's most beautiful park — a romantic English landscape garden with lakes, bridges, islands, and resident herons. The palace sits at one end (exterior only). Free to enter and a lovely spot for a picnic or ice cream.</div>
               <div class="stop-tips">
@@ -861,7 +1446,7 @@
           <div class="stop">
             <div class="stop-num">3</div>
             <div class="stop-content">
-              <div class="stop-name">Copenhagen Zoo Fence</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Copenhagen+Zoo" target="_blank" rel="noopener">Copenhagen Zoo Fence</a></div>
               <div class="stop-timing">Afternoon · 20–30 min</div>
               <div class="stop-desc">The Zoo backs onto Frederiksberg Gardens, and from the right spots along the fence you can see elephants, giraffes, and other animals completely free. A fun bonus stop especially if you don't want to pay full zoo entry.</div>
               <div class="stop-tips">
@@ -874,7 +1459,7 @@
           <div class="stop">
             <div class="stop-num">4</div>
             <div class="stop-content">
-              <div class="stop-name">Vesterbro Neighbourhood</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Vesterbro+Copenhagen" target="_blank" rel="noopener">Vesterbro Neighbourhood</a></div>
               <div class="stop-timing">Late afternoon · 60–90 min</div>
               <div class="stop-desc">Copenhagen's hippest neighbourhood — once gritty, now full of craft breweries, vintage shops, design stores, and excellent restaurants. Værnedamsvej is the prettiest street, sometimes called 'Little Paris'. The Meatpacking District (Kødbyen) has galleries and restaurants.</div>
               <div class="stop-tips">
@@ -887,24 +1472,55 @@
           <div class="coffee-section">
             <div class="coffee-header">☕ Coffee stops nearby</div>
             <div class="coffee-spot">
-              <div class="coffee-name">Alice Ice Cream & Coffee</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=Alice+Ice+Cream+Copenhagen" target="_blank" rel="noopener">Alice Ice Cream & Coffee</a></div>
               <div class="coffee-rating">4.5 ★ (535 reviews)</div>
               <div class="coffee-addr">Markmandsgade 1, Amager — near the beach Metro</div>
               <div class="coffee-desc">Started as an ice cream shop, now one of Amager's cosiest coffee spots. Serves Swedish Koppi Roasters coffee known for clean, bright flavours. The croissants are perfection.</div>
             </div>
             <div class="coffee-spot">
-              <div class="coffee-name">Rist Kaffebar</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=Rist+Kaffebar+Copenhagen" target="_blank" rel="noopener">Rist Kaffebar</a></div>
               <div class="coffee-rating">4.5 ★ (742 Tripadvisor)</div>
               <div class="coffee-addr">Værnedamsvej 4, Frederiksberg/Vesterbro — at Stop 4</div>
               <div class="coffee-desc">Small, charming coffee shop on Copenhagen's prettiest street. Serves Coffee Collective beans with friendly, knowledgeable staff. Excellent pastries and very affordable for the area.</div>
             </div>
             <div class="coffee-spot">
-              <div class="coffee-name">Coffee Collective (Frederiksberg)</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=Coffee+Collective+Frederiksberg+Copenhagen" target="_blank" rel="noopener">Coffee Collective (Frederiksberg)</a></div>
               <div class="coffee-rating">4.6 ★ (1,534 reviews)</div>
               <div class="coffee-addr">Godthåbsvej 34B, Frederiksberg — near Stop 2</div>
               <div class="coffee-desc">The Frederiksberg outpost includes the roastery and a beautiful café in a converted industrial building. This is where the magic happens — watch beans being roasted while you drink.</div>
             </div>
           </div>
+
+          <div class="food-section">
+            <div class="food-header">🍽️ Lunch & Dinner</div>
+            <div class="food-sub-header lunch">Lunch</div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Smagsløget+Copenhagen" target="_blank" rel="noopener">Smagsløget</a></div>
+              <div class="food-rating">4.5 ★</div>
+              <div class="food-addr">Vesterbrogade 19, Vesterbro</div>
+              <div class="food-desc">Gourmet sandwich bar with big, creative sandwiches from quality Danish ingredients. Fast, affordable, perfect for a walking lunch in Vesterbro.</div>
+            </div>
+            <div class="food-spot">
+              <div class="food-name">Picnic in Frederiksberg Gardens</div>
+              <div class="food-rating">—</div>
+              <div class="food-addr">Pick up supplies from a nearby Irma or Netto</div>
+              <div class="food-desc">If the weather is gorgeous, grab sandwiches and fruit from a supermarket and eat in the gardens. Irma (Danish M&S) has good prepared food.</div>
+            </div>
+            <div class="food-sub-header dinner">Dinner</div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Kødbyens+Fiskebar+Copenhagen" target="_blank" rel="noopener">Kødbyens Fiskebar</a></div>
+              <div class="food-rating">4.3 ★ — Michelin Bib Gourmand</div>
+              <div class="food-addr">Flæsketorvet 100, Kødbyen (Meatpacking District)</div>
+              <div class="food-desc">Industrial-chic seafood in the old meatpacking district. Despite the Michelin nod, completely unpretentious — white tiles, chalkboard menu. Excellent fish.</div>
+            </div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Sanchez+Istedgade+Copenhagen" target="_blank" rel="noopener">Sanchez</a></div>
+              <div class="food-rating">4.3 ★</div>
+              <div class="food-addr">Istedgade 60, Vesterbro</div>
+              <div class="food-desc">Modern Mexican in the heart of Vesterbro. Tacos, ceviche, and cocktails with Nordic-adapted flavours. Fun, casual, and the kids will enjoy the tacos.</div>
+            </div>
+          </div>
+
 
         </div>
       </details>
@@ -924,10 +1540,59 @@
             Day trip · A day trip across the Øresund Bridge to Sweden. Trains leave Copenhagen Central Station every 20 min (35 min journey, Copenhagen Card does NOT cover this — buy a separate Øresund ticket). Malmö is compact and walkable. Different country, different currency (Swedish Krona / SEK) — but cards are accepted everywhere. Malmö has its own distinct vibe: more relaxed than Copenhagen, excellent fika culture, and beautiful medieval squares.
           </div>
 
+          <div class="day-map">
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" style="background:#f0f4f8">
+  <style>text { font-family: Arial, Helvetica, sans-serif; }</style>
+  <rect x="200" y="0" width="200" height="400" fill="#d4e6f1" opacity="0.2"/>
+  <text x="300" y="200" text-anchor="middle" fill="#5dade2" font-size="10" font-style="italic" transform="rotate(-90,300,200)">Øresund Strait</text>
+  <line x1="200" y1="350" x2="400" y2="350" stroke="#7f8c8d" stroke-width="4"/>
+  <text x="300" y="370" text-anchor="middle" fill="#7f8c8d" font-size="8">Øresund Bridge</text>
+  <rect x="0" y="0" width="200" height="400" rx="0" fill="#d5f5e3" opacity="0.15"/>
+  <text x="100" y="30" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">DENMARK</text>
+  <rect x="400" y="0" width="200" height="400" rx="0" fill="#fdebd0" opacity="0.15"/>
+  <text x="500" y="30" text-anchor="middle" fill="#e67e22" font-size="11" font-weight="bold">SWEDEN</text>
+  <path d="M 100,300 L 200,350 L 400,350 L 500,200" fill="none" stroke="#3498db" stroke-width="3" stroke-dasharray="12,4"/>
+  <text x="300" y="340" text-anchor="middle" fill="#3498db" font-size="8">35 min train</text>
+  <rect x="88" y="288" width="24" height="24" rx="4" fill="#2980b9"/>
+  <text x="100" y="305" text-anchor="middle" fill="white" font-size="12" font-weight="bold">H</text>
+  <text x="100" y="283" text-anchor="middle" fill="#2980b9" font-size="7" font-weight="bold">CPH Central</text>
+  <circle cx="480" cy="140" r="12" fill="#c0392b"/>
+  <text x="480" y="145" text-anchor="middle" fill="white" font-size="11" font-weight="bold">1</text>
+  <text x="530" y="140" text-anchor="start" fill="#333" font-size="9" font-weight="bold">Stortorget</text>
+  <circle cx="500" cy="180" r="12" fill="#c0392b"/>
+  <text x="500" y="185" text-anchor="middle" fill="white" font-size="11" font-weight="bold">2</text>
+  <text x="530" y="185" text-anchor="start" fill="#333" font-size="9" font-weight="bold">Lilla Torg</text>
+  <circle cx="450" cy="100" r="12" fill="#c0392b"/>
+  <text x="450" y="105" text-anchor="middle" fill="white" font-size="11" font-weight="bold">3</text>
+  <text x="450" y="85" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Malmöhus</text>
+  <circle cx="430" cy="60" r="12" fill="#c0392b"/>
+  <text x="430" y="65" text-anchor="middle" fill="white" font-size="11" font-weight="bold">4</text>
+  <text x="465" y="55" text-anchor="start" fill="#333" font-size="9" font-weight="bold">Turning Torso</text>
+  <path d="M 500,200 L 480,140 L 450,100 L 430,60" fill="none" stroke="#e74c3c" stroke-width="2" stroke-dasharray="8,4"/>
+  <rect x="510" y="155" width="18" height="18" rx="3" fill="#6F4E37"/>
+  <text x="519" y="168" text-anchor="middle" fill="white" font-size="10" font-weight="bold">C</text>
+  <rect x="15" y="340" width="170" height="50" rx="5" fill="white" stroke="#ddd"/>
+  <circle cx="30" cy="355" r="5" fill="#c0392b"/>
+  <text x="40" y="359" fill="#333" font-size="8">Numbered stop</text>
+  <rect x="25" y="367" width="10" height="10" rx="2" fill="#2980b9"/>
+  <text x="40" y="376" fill="#333" font-size="8">Station</text>
+  <rect x="95" y="347" width="10" height="10" rx="2" fill="#6F4E37"/>
+  <text x="110" y="357" fill="#333" font-size="8">Coffee</text>
+  <line x1="95" y1="375" x2="115" y2="375" stroke="#3498db" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="120" y="379" fill="#333" font-size="8">Train</text>
+</svg>
+          </div>
+
+          <div class="travel-section">
+            <div class="travel-title">🚂 Getting there</div>
+            <div class="travel-desc"><strong>From hotel to Copenhagen Central:</strong> 20 min walk south via Strøget, or Metro from Kongens Nytorv (nearest station to hotel) — take M3/M4 one stop to Nørreport, then walk 8 min to Central. Buy an Øresund ticket at the station or via the DSB app (not covered by Copenhagen Card). Trains to Malmö depart every 20 min — 35 min journey across the Øresund Bridge.</div>
+            <div class="travel-desc" style="margin-top:8px"><strong>Getting back:</strong> Trains from Malmö Central back to Copenhagen Central run every 20 min until late (~midnight). Same route in reverse — walk or Metro back to hotel. Last trains thin out after 11pm so don't leave it too late.</div>
+          </div>
+
           <div class="stop">
             <div class="stop-num">1</div>
             <div class="stop-content">
-              <div class="stop-name">Stortorget (Main Square)</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Stortorget+Malmö" target="_blank" rel="noopener">Stortorget (Main Square)</a></div>
               <div class="stop-timing">Start here — 10 min walk from station · 20–30 min</div>
               <div class="stop-desc">Malmö's grand main square — dominated by the imposing 16th-century Town Hall and the equestrian statue of Karl X Gustav. The square hosts markets and events. Good orientation point for exploring the old town.</div>
               <div class="stop-tips">
@@ -940,7 +1605,7 @@
           <div class="stop">
             <div class="stop-num">2</div>
             <div class="stop-content">
-              <div class="stop-name">Lilla Torg</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Lilla+Torg+Malmö" target="_blank" rel="noopener">Lilla Torg</a></div>
               <div class="stop-timing">Late morning · 30–45 min</div>
               <div class="stop-desc">Malmö's most charming square — half-timbered 16th-century buildings around a cobblestoned plaza filled with café terraces. Much more intimate and photogenic than Stortorget. This is where locals come for fika.</div>
               <div class="stop-tips">
@@ -953,7 +1618,7 @@
           <div class="stop">
             <div class="stop-num">3</div>
             <div class="stop-content">
-              <div class="stop-name">Malmöhus Castle</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Malmöhus+Castle+Malmö" target="_blank" rel="noopener">Malmöhus Castle</a></div>
               <div class="stop-timing">Midday · 60–90 min</div>
               <div class="stop-desc">Scandinavia's oldest surviving Renaissance castle (1434). Now houses several museums including art, natural history, and a maritime museum with a submarine you can walk through. The castle grounds are free to wander.</div>
               <div class="stop-tips">
@@ -966,7 +1631,7 @@
           <div class="stop">
             <div class="stop-num">4</div>
             <div class="stop-content">
-              <div class="stop-name">Turning Torso & Øresund Views</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Turning+Torso+Malmö" target="_blank" rel="noopener">Turning Torso & Øresund Views</a></div>
               <div class="stop-timing">Afternoon · 30–45 min</div>
               <div class="stop-desc">Scandinavia's tallest building (190m) — a twisting skyscraper in the Västra Hamnen (Western Harbour) district. You can't go inside, but the surrounding area has great seaside promenades with views across the Øresund to Copenhagen and the bridge you crossed.</div>
               <div class="stop-tips">
@@ -979,18 +1644,49 @@
           <div class="coffee-section">
             <div class="coffee-header">☕ Coffee stops nearby</div>
             <div class="coffee-spot">
-              <div class="coffee-name">Lilla Kafferosteriet</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=Lilla+Kafferosteriet+Malmö" target="_blank" rel="noopener">Lilla Kafferosteriet</a></div>
               <div class="coffee-rating">4.5 ★ (3,571 reviews)</div>
               <div class="coffee-addr">Baltzarsgatan 24A — 2 min from Lilla Torg</div>
               <div class="coffee-desc">Malmö's oldest micro-roastery, in a beautiful 17th-century townhouse. They roast their own beans on site. Famous for the carrot cake. Cosy, atmospheric, and beloved by locals.</div>
             </div>
             <div class="coffee-spot">
-              <div class="coffee-name">Solde Kaffebar</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=Solde+Kaffebar+Malmö" target="_blank" rel="noopener">Solde Kaffebar</a></div>
               <div class="coffee-rating">4.6 ★ (771 reviews)</div>
               <div class="coffee-addr">Regementsgatan 2 — between Malmöhus and Turning Torso</div>
               <div class="coffee-desc">Malmö's original specialty coffee bar since 2006. Roasts their own beans on site and supplies other cafés across Sweden. Great sandwiches, croissants, and a genuine neighbourhood feel.</div>
             </div>
           </div>
+
+          <div class="food-section">
+            <div class="food-header">🍽️ Lunch & Dinner</div>
+            <div class="food-sub-header lunch">Lunch</div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Malmö+Saluhall" target="_blank" rel="noopener">Malmö Saluhall</a></div>
+              <div class="food-rating">4.3 ★</div>
+              <div class="food-addr">Gibraltargatan 6 — market hall near station</div>
+              <div class="food-desc">Modern food hall with diverse stalls — ramen, tacos, Swedish meatballs, sushi. Easy family option since everyone picks their own.</div>
+            </div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Jalla+Jalla+Malmö" target="_blank" rel="noopener">Jalla Jalla</a></div>
+              <div class="food-rating">4.4 ★</div>
+              <div class="food-addr">Bergsgatan 4 — near Möllevångstorget</div>
+              <div class="food-desc">Famous falafel spot — Malmö has Sweden's best falafel. Huge portions, very affordable. A must-try.</div>
+            </div>
+            <div class="food-sub-header dinner">Dinner</div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Ruths+Malmö" target="_blank" rel="noopener">Ruths</a></div>
+              <div class="food-rating">4.4 ★</div>
+              <div class="food-addr">Friisgatan 8 — central Malmö</div>
+              <div class="food-desc">Bustling café, bakery and deli. Mediterranean-inspired dinner menu. Relaxed atmosphere. No booking needed, but arrive early in summer.</div>
+            </div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Pizza+da+Sud+Malmö" target="_blank" rel="noopener">Pizza da Sud</a></div>
+              <div class="food-rating">4.5 ★</div>
+              <div class="food-addr">Davidshallsgatan 25</div>
+              <div class="food-desc">Authentic Neapolitan sourdough pizza — some of the best in Scandinavia. Simple, affordable, perfect before the train back.</div>
+            </div>
+          </div>
+
 
           <div class="evening-section">
             <div class="evening-title">📝 Practical notes: Malmö day trip</div>
@@ -1015,10 +1711,56 @@
             Day trip · A half-day trip north to Helsingør and the UNESCO-listed Kronborg Castle — Shakespeare's Hamlet castle. The train runs direct from Copenhagen Central (45 min, covered by Copenhagen Card). Kronborg is genuinely impressive: a massive Renaissance fortress jutting into the Øresund strait with Sweden visible across the water. The underground casemates are atmospheric and slightly spooky. The harbour town of Helsingør is charming enough for a wander and lunch. You'll be back in Copenhagen by late afternoon.
           </div>
 
+          <div class="day-map">
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" style="background:#f0f4f8">
+  <style>text { font-family: Arial, Helvetica, sans-serif; }</style>
+  <rect x="350" y="0" width="250" height="400" fill="#d4e6f1" opacity="0.2"/>
+  <text x="475" y="200" text-anchor="middle" fill="#5dade2" font-size="10" font-style="italic">Øresund</text>
+  <text x="550" y="180" text-anchor="middle" fill="#bbb" font-size="9" font-style="italic">Sweden →</text>
+  <path d="M 150,350 Q 200,250 300,150 Q 340,100 350,80" fill="none" stroke="#3498db" stroke-width="3" stroke-dasharray="12,4"/>
+  <text x="200" y="260" fill="#3498db" font-size="8" transform="rotate(-50,200,260)">45 min train</text>
+  <rect x="100" y="300" width="120" height="60" rx="10" fill="#d5f5e3" opacity="0.2"/>
+  <text x="160" y="335" text-anchor="middle" fill="#999" font-size="9">Copenhagen</text>
+  <rect x="138" y="345" width="24" height="24" rx="4" fill="#2980b9"/>
+  <text x="150" y="362" text-anchor="middle" fill="white" font-size="12" font-weight="bold">H</text>
+  <rect x="250" y="30" width="150" height="160" rx="10" fill="#fdebd0" opacity="0.15"/>
+  <text x="325" y="50" text-anchor="middle" fill="#e67e22" font-size="10" font-weight="bold">Helsingør</text>
+  <circle cx="360" cy="80" r="14" fill="#c0392b"/>
+  <text x="360" y="85" text-anchor="middle" fill="white" font-size="11" font-weight="bold">1</text>
+  <text x="360" y="65" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Kronborg Castle</text>
+  <circle cx="330" cy="120" r="12" fill="#c0392b"/>
+  <text x="330" y="125" text-anchor="middle" fill="white" font-size="11" font-weight="bold">2</text>
+  <text x="290" y="115" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Casemates</text>
+  <circle cx="300" cy="160" r="12" fill="#c0392b"/>
+  <text x="300" y="165" text-anchor="middle" fill="white" font-size="11" font-weight="bold">3</text>
+  <text x="265" y="175" text-anchor="middle" fill="#333" font-size="9" font-weight="bold">Harbour</text>
+  <path d="M 350,80 L 330,120 L 300,160" fill="none" stroke="#e74c3c" stroke-width="2" stroke-dasharray="8,4"/>
+  <rect x="365" y="90" width="18" height="18" rx="3" fill="#6F4E37"/>
+  <text x="374" y="103" text-anchor="middle" fill="white" font-size="10" font-weight="bold">C</text>
+  <rect x="310" y="150" width="18" height="18" rx="3" fill="#6F4E37"/>
+  <text x="319" y="163" text-anchor="middle" fill="white" font-size="10" font-weight="bold">C</text>
+  <rect x="15" y="340" width="120" height="50" rx="5" fill="white" stroke="#ddd"/>
+  <circle cx="30" cy="355" r="5" fill="#c0392b"/>
+  <text x="40" y="359" fill="#333" font-size="8">Stop</text>
+  <rect x="25" y="367" width="10" height="10" rx="2" fill="#6F4E37"/>
+  <text x="40" y="376" fill="#333" font-size="8">Coffee</text>
+  <rect x="75" y="347" width="10" height="10" rx="2" fill="#2980b9"/>
+  <text x="90" y="357" fill="#333" font-size="8">Hotel</text>
+  <line x1="75" y1="375" x2="95" y2="375" stroke="#3498db" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="100" y="379" fill="#333" font-size="8">Train</text>
+</svg>
+          </div>
+
+          <div class="travel-section">
+            <div class="travel-title">🚂 Getting there</div>
+            <div class="travel-desc"><strong>From hotel to Copenhagen Central:</strong> 20 min walk south via Strøget, or Metro from Kongens Nytorv — take M3/M4 one stop to Nørreport, then walk 8 min to Central. Direct train to Helsingør every 20 min (45 min journey, covered by Copenhagen Card). From Helsingør station, 15 min walk along the waterfront to Kronborg.</div>
+            <div class="travel-desc" style="margin-top:8px"><strong>Getting back:</strong> Trains from Helsingør back to Copenhagen Central every 20 min. You'll be back by 4–5pm. Same walk or Metro back to hotel. Consider dinner at Nyhavn — it's right next to the hotel.</div>
+          </div>
+
           <div class="stop">
             <div class="stop-num">1</div>
             <div class="stop-content">
-              <div class="stop-name">Kronborg Castle</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Kronborg+Castle+Helsingør" target="_blank" rel="noopener">Kronborg Castle</a></div>
               <div class="stop-timing">Arrive late morning · 90–120 min</div>
               <div class="stop-desc">UNESCO World Heritage site and the setting for Shakespeare's Hamlet. A massive Renaissance fortress built in the 1420s, guarding the narrowest point of the Øresund strait. Stunning ballroom, royal apartments, and cannon-lined ramparts with views to Sweden.</div>
               <div class="stop-tips">
@@ -1031,7 +1773,7 @@
           <div class="stop">
             <div class="stop-num">2</div>
             <div class="stop-content">
-              <div class="stop-name">Casemates (Underground Tunnels)</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Kronborg+Castle+Helsingør" target="_blank" rel="noopener">Casemates (Underground Tunnels)</a></div>
               <div class="stop-timing">Included with castle visit · 20–30 min</div>
               <div class="stop-desc">Dark, atmospheric underground tunnels beneath the castle — originally built for soldiers to shelter during sieges. Dimly lit with candles, slightly damp, and genuinely eerie. The statue of the mythical warrior Holger Danske sits in the deepest chamber.</div>
               <div class="stop-tips">
@@ -1044,7 +1786,7 @@
           <div class="stop">
             <div class="stop-num">3</div>
             <div class="stop-content">
-              <div class="stop-name">Helsingør Harbour Town</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Helsingør+Harbour" target="_blank" rel="noopener">Helsingør Harbour Town</a></div>
               <div class="stop-timing">After the castle · 60–90 min</div>
               <div class="stop-desc">Charming medieval harbour town with cobblestoned streets, colourful timber-framed houses, and waterfront restaurants. The harbour itself has views to Helsingborg in Sweden (you can take a 20-min ferry across if you fancy). Good for lunch and a relaxed wander.</div>
               <div class="stop-tips">
@@ -1057,18 +1799,49 @@
           <div class="coffee-section">
             <div class="coffee-header">☕ Coffee stops nearby</div>
             <div class="coffee-spot">
-              <div class="coffee-name">Strandvejsristeriet</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=Strandvejsristeriet+Helsingør" target="_blank" rel="noopener">Strandvejsristeriet</a></div>
               <div class="coffee-rating">4.8 ★ (794 reviews)</div>
               <div class="coffee-addr">Kronborg 12A — right at the castle garrison buildings</div>
               <div class="coffee-desc">North Zealand's first micro-roastery, housed in the historic garrison buildings of Kronborg Castle itself. Freshly roasted organic coffee in a uniquely atmospheric setting. A must-stop before or after the castle.</div>
             </div>
             <div class="coffee-spot">
-              <div class="coffee-name">Lagoni Kaffebar</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=Lagoni+Kaffebar+Helsingør" target="_blank" rel="noopener">Lagoni Kaffebar</a></div>
               <div class="coffee-rating">4.6 ★ (Tripadvisor)</div>
               <div class="coffee-addr">Svingelport 3, Simon Spies Plads — central Helsingør</div>
               <div class="coffee-desc">Cosy independent café in the heart of Helsingør. Locals say it serves probably the best coffee in town — excellent cappuccinos with balanced bitterness and perfect foam. Great cakes too.</div>
             </div>
           </div>
+
+          <div class="food-section">
+            <div class="food-header">🍽️ Lunch & Dinner</div>
+            <div class="food-sub-header lunch">Lunch</div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=The+Copenhagener+Helsingør" target="_blank" rel="noopener">The Copenhagener</a></div>
+              <div class="food-rating">4.3 ★</div>
+              <div class="food-addr">Stengade 39, Helsingør</div>
+              <div class="food-desc">Authentic Danish pub-restaurant on the main pedestrian street. Excellent smørrebrød and classic Danish dishes. Cosy atmosphere, reasonably priced.</div>
+            </div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Shipyard+Street+Food+Helsingør" target="_blank" rel="noopener">Shipyard Street Food</a></div>
+              <div class="food-rating">4.1 ★</div>
+              <div class="food-addr">Helsingør harbour area</div>
+              <div class="food-desc">Street food in rustic maritime surroundings on the docks. International food stalls in a casual, family-friendly setting.</div>
+            </div>
+            <div class="food-sub-header dinner">Dinner</div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Brasserie+1861+Helsingør" target="_blank" rel="noopener">Brasserie 1861</a></div>
+              <div class="food-rating">4.4 ★</div>
+              <div class="food-addr">Havnepladsen 1, Helsingør</div>
+              <div class="food-desc">Modern Nordic food with stunning sea views. Historical building overlooking the harbour and Øresund. Worth it for the view alone. Book ahead.</div>
+            </div>
+            <div class="food-spot">
+              <div class="food-name">Back in Copenhagen</div>
+              <div class="food-rating">—</div>
+              <div class="food-addr">Train back by 4–5pm</div>
+              <div class="food-desc">You'll likely be back in Copenhagen for dinner. Use any of the other days' dinner picks — Nyhavn, Vesterbro, and Nørrebro are all good evening options.</div>
+            </div>
+          </div>
+
 
           <div class="evening-section">
             <div class="evening-title">🚂 Back in Copenhagen by late afternoon</div>
@@ -1093,10 +1866,16 @@
             Day trip · A half-day trip to Denmark's most spectacular castle — Frederiksborg, a Renaissance masterpiece built across three lake islands in Hillerød. The train runs direct from Copenhagen Central (45 min, S-train line A/E to Hillerød, covered by Copenhagen Card). The castle houses the Museum of National History with lavish rooms and a stunning chapel. The baroque gardens behind are beautiful in summer. This is a more relaxed day trip than Kronborg — fewer stops but more time to soak in the grandeur. You could combine this with Day G (Kronborg) for an ambitious double castle day, but each deserves its own visit.
           </div>
 
+          <div class="travel-section">
+            <div class="travel-title">🚂 Getting there</div>
+            <div class="travel-desc"><strong>Easiest route — via Nørreport:</strong> Metro from Kongens Nytorv (nearest to hotel) one stop to Nørreport (2 min). Then S-train line A or E direct to Hillerød (40 min). No need to go to Central Station — Nørreport is quicker. Covered by Copenhagen Card. From Hillerød station, 15 min walk through town to the castle.</div>
+            <div class="travel-desc" style="margin-top:8px"><strong>Getting back:</strong> S-trains from Hillerød run frequently back to Nørreport (~40 min), then Metro one stop to Kongens Nytorv. You'll be back at the hotel by 3–4pm with the whole evening free.</div>
+          </div>
+
           <div class="stop">
             <div class="stop-num">1</div>
             <div class="stop-content">
-              <div class="stop-name">Frederiksborg Castle</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Frederiksborg+Castle+Hillerød" target="_blank" rel="noopener">Frederiksborg Castle</a></div>
               <div class="stop-timing">Arrive late morning · 90–120 min</div>
               <div class="stop-desc">Scandinavia's largest Renaissance castle, built across three islands on a lake. Constructed by Christian IV in the early 1600s, it's jaw-droppingly grand — red brick, copper spires, and an ornate inner courtyard. The approach across the lake is one of Denmark's most photogenic views.</div>
               <div class="stop-tips">
@@ -1109,7 +1888,7 @@
           <div class="stop">
             <div class="stop-num">2</div>
             <div class="stop-content">
-              <div class="stop-name">Museum of National History</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Frederiksborg+Castle+Hillerød" target="_blank" rel="noopener">Museum of National History</a></div>
               <div class="stop-timing">Inside the castle · 60–90 min</div>
               <div class="stop-desc">The castle interior houses Denmark's Museum of National History — 500 years of Danish history through portraits, tapestries, and lavishly decorated rooms. The Great Hall and the Chapel (still used for royal ceremonies) are the highlights.</div>
               <div class="stop-tips">
@@ -1122,7 +1901,7 @@
           <div class="stop">
             <div class="stop-num">3</div>
             <div class="stop-content">
-              <div class="stop-name">Baroque Gardens</div>
+              <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Frederiksborg+Castle+Gardens+Hillerød" target="_blank" rel="noopener">Baroque Gardens</a></div>
               <div class="stop-timing">After the museum · 30–45 min</div>
               <div class="stop-desc">Behind the castle, meticulously restored baroque gardens cascade down a hillside in geometric patterns of hedges, fountains, and flower beds. Free to enter. From the top of the garden you get a beautiful view back across the lake to the castle.</div>
               <div class="stop-tips">
@@ -1135,18 +1914,43 @@
           <div class="coffee-section">
             <div class="coffee-header">☕ Coffee stops nearby</div>
             <div class="coffee-spot">
-              <div class="coffee-name">Café Havehuset</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=Café+Havehuset+Frederiksborg+Hillerød" target="_blank" rel="noopener">Café Havehuset</a></div>
               <div class="coffee-rating">4.0 ★ (Tripadvisor, #7 in Hillerød)</div>
               <div class="coffee-addr">Frederiksborg Castle Gardens — in the park</div>
               <div class="coffee-desc">Set on top of a hill in the castle gardens with a terrace overlooking the grounds. Coffee, cake, and Danish open sandwiches. A beautiful setting — swans on the pond, birdsong, and views of the historic park.</div>
             </div>
             <div class="coffee-spot">
-              <div class="coffee-name">Café Valentin</div>
+              <div class="coffee-name"><a href="https://www.google.com/maps/search/?api=1&query=Café+Valentin+Hillerød" target="_blank" rel="noopener">Café Valentin</a></div>
               <div class="coffee-rating">Local favourite</div>
               <div class="coffee-addr">Central Hillerød — near the station</div>
               <div class="coffee-desc">Popular local café near the station, recommended for lunch before or after the castle. Outdoor patio with castle views. Good coffee and classic Danish lunch dishes. A relaxed spot to refuel.</div>
             </div>
           </div>
+
+          <div class="food-section">
+            <div class="food-header">🍽️ Lunch & Dinner</div>
+            <div class="food-sub-header lunch">Lunch</div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Rabarbergaarden+Frederiksborg+Hillerød" target="_blank" rel="noopener">Rabarbergaarden på Slottet</a></div>
+              <div class="food-rating">4.3 ★</div>
+              <div class="food-addr">Inside Frederiksborg Castle grounds</div>
+              <div class="food-desc">Farm-to-table restaurant right in the castle. Fresh, seasonal Danish food in a stunning setting. The nicest lunch option here.</div>
+            </div>
+            <div class="food-spot">
+              <div class="food-name"><a href="https://www.google.com/maps/search/?api=1&query=Rømers+Hillerød" target="_blank" rel="noopener">Rømers</a></div>
+              <div class="food-rating">4.4 ★</div>
+              <div class="food-addr">Slotsgade, central Hillerød</div>
+              <div class="food-desc">French-inspired café with classic dishes — croque monsieur, tartiflette, chèvre salad. Charming spot near the castle.</div>
+            </div>
+            <div class="food-sub-header dinner">Dinner</div>
+            <div class="food-spot">
+              <div class="food-name">Back in Copenhagen</div>
+              <div class="food-rating">—</div>
+              <div class="food-addr">S-train back by 3–4pm</div>
+              <div class="food-desc">Half-day trip — you'll be back early. Use the evening for a Copenhagen dinner pick you haven't tried yet. Bæst, Kanalen, and Kødbyens Fiskebar are all excellent.</div>
+            </div>
+          </div>
+
 
           <div class="evening-section">
             <div class="evening-title">🚂 Back in Copenhagen by mid-afternoon</div>
@@ -1155,6 +1959,213 @@
 
         </div>
       </details>
+
+    </div>
+  </details>
+
+  <!-- ========== DANISH PHRASES ========== -->
+  <details class="top-section">
+    <summary>
+      <span class="section-icon">🇩🇰</span>
+      <span class="section-label">
+        <div class="title">Danish Phrases</div>
+        <div class="subtitle">Useful words & pronunciation guide</div>
+      </span>
+      <span class="section-chevron">▼</span>
+    </summary>
+    <div class="section-body" style="font-size:0.85em;">
+
+      <div style="color:var(--subtle);margin-bottom:12px;line-height:1.5;">Everyone speaks English, so don't worry — but a few Danish words go a long way. Danes genuinely appreciate even a clumsy attempt.</div>
+
+      <table style="width:100%;border-collapse:collapse;">
+        <thead>
+          <tr style="border-bottom:2px solid var(--border);text-align:left;">
+            <th style="padding:6px 4px;font-size:0.85em;color:var(--light);">English</th>
+            <th style="padding:6px 4px;font-size:0.85em;color:var(--light);">Danish</th>
+            <th style="padding:6px 4px;font-size:0.85em;color:var(--light);">Say it like…</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Hello</td>
+            <td style="padding:8px 4px;font-weight:600;">Hej</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">hi</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Good morning</td>
+            <td style="padding:8px 4px;font-weight:600;">Godmorgen</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">go-morn</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Good evening</td>
+            <td style="padding:8px 4px;font-weight:600;">Godaften</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">go-ahf-ten</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Goodnight</td>
+            <td style="padding:8px 4px;font-weight:600;">Godnat</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">go-nat</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Goodbye</td>
+            <td style="padding:8px 4px;font-weight:600;">Hej hej</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">hi hi</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Thank you</td>
+            <td style="padding:8px 4px;font-weight:600;">Tak</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">tahk</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Thanks a lot</td>
+            <td style="padding:8px 4px;font-weight:600;">Mange tak</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">mung-eh tahk</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Yes / No</td>
+            <td style="padding:8px 4px;font-weight:600;">Ja / Nej</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">ya / nai</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Please</td>
+            <td style="padding:8px 4px;font-weight:600;">Vær så venlig</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">vehr soh ven-lee</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Excuse me</td>
+            <td style="padding:8px 4px;font-weight:600;">Undskyld</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">oon-skewl</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Sorry</td>
+            <td style="padding:8px 4px;font-weight:600;">Undskyld</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">oon-skewl</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Do you speak English?</td>
+            <td style="padding:8px 4px;font-weight:600;">Taler du engelsk?</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">tay-ler doo eng-elsk</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">The bill, please</td>
+            <td style="padding:8px 4px;font-weight:600;">Regningen, tak</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">rai-ning-en tahk</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">How much?</td>
+            <td style="padding:8px 4px;font-weight:600;">Hvor meget?</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">vor my-eth</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Where is…?</td>
+            <td style="padding:8px 4px;font-weight:600;">Hvor er…?</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">vor ehr</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Toilet</td>
+            <td style="padding:8px 4px;font-weight:600;">Toilet</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">toy-let</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Two beers, please</td>
+            <td style="padding:8px 4px;font-weight:600;">To øl, tak</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">toe url tahk</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Coffee</td>
+            <td style="padding:8px 4px;font-weight:600;">Kaffe</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">kah-feh</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Water</td>
+            <td style="padding:8px 4px;font-weight:600;">Vand</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">van</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Cheers!</td>
+            <td style="padding:8px 4px;font-weight:600;">Skål!</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">skohl</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">Delicious</td>
+            <td style="padding:8px 4px;font-weight:600;">Lækker</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">leh-ker</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:var(--bg);">
+            <td colspan="3" style="padding:8px 4px;font-weight:700;font-size:0.85em;color:var(--light);">Numbers</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">1</td>
+            <td style="padding:8px 4px;font-weight:600;">En / Et</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">ehn / eht</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">2</td>
+            <td style="padding:8px 4px;font-weight:600;">To</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">toe</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">3</td>
+            <td style="padding:8px 4px;font-weight:600;">Tre</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">treh</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 4px;">4</td>
+            <td style="padding:8px 4px;font-weight:600;">Fire</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">fee-reh</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 4px;">5</td>
+            <td style="padding:8px 4px;font-weight:600;">Fem</td>
+            <td style="padding:8px 4px;color:var(--subtle);font-style:italic;">fem</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top:12px;padding:10px 14px;background:#E8DAEF;border-radius:6px;font-size:0.9em;color:var(--subtle);line-height:1.6;">
+        <strong style="color:var(--text);">Top tip:</strong> Danish pronunciation is notoriously tricky — the "soft d" sounds like a "th" and many letters are swallowed. Don't overthink it. Say "hej" and "tak" with confidence and you'll get a smile every time.
+      </div>
+
+    </div>
+  </details>
+
+  <!-- ========== CURRENCY CONVERTER ========== -->
+  <details class="top-section">
+    <summary>
+      <span class="section-icon">💱</span>
+      <span class="section-label">
+        <div class="title">Currency Converter</div>
+        <div class="subtitle">DKK & SEK → GBP · works offline</div>
+      </span>
+      <span class="section-chevron">▼</span>
+    </summary>
+    <div class="section-body">
+
+      <div style="margin-bottom:16px;">
+        <label style="font-weight:700;font-size:0.9em;display:block;margin-bottom:6px;">🇩🇰 Danish Krone (DKK) → GBP</label>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input type="number" id="dkk-input" placeholder="e.g. 100" inputmode="decimal"
+            style="flex:1;padding:10px 12px;border:1px solid var(--border);border-radius:6px;font-size:1em;background:var(--card);"
+            oninput="document.getElementById('dkk-result').textContent=this.value?(this.value*0.115).toFixed(2)+' GBP':'—'">
+          <span id="dkk-result" style="font-weight:700;font-size:1em;min-width:90px;">—</span>
+        </div>
+        <div style="font-size:0.75em;color:var(--light);margin-top:4px;">1 DKK ≈ £0.115</div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <label style="font-weight:700;font-size:0.9em;display:block;margin-bottom:6px;">🇸🇪 Swedish Krona (SEK) → GBP</label>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input type="number" id="sek-input" placeholder="e.g. 100" inputmode="decimal"
+            style="flex:1;padding:10px 12px;border:1px solid var(--border);border-radius:6px;font-size:1em;background:var(--card);"
+            oninput="document.getElementById('sek-result').textContent=this.value?(this.value*0.078).toFixed(2)+' GBP':'—'">
+          <span id="sek-result" style="font-weight:700;font-size:1em;min-width:90px;">—</span>
+        </div>
+        <div style="font-size:0.75em;color:var(--light);margin-top:4px;">1 SEK ≈ £0.078</div>
+      </div>
+
+      <div style="font-size:0.75em;color:var(--light);border-top:1px solid var(--border);padding-top:8px;">
+        Rates from 1 July 2026 · hardcoded for offline use · approximate only
+      </div>
 
     </div>
   </details>
