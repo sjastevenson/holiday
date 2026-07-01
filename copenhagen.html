@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copenhagen 2026</title>
+<style>
+  :root {
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --subtle: #555;
+    --light: #777;
+    --border: #e0e0e0;
+    --sunshine: #FFF3CD;
+    --rain: #D6EAF8;
+    --any: #D5F5E3;
+    --daytrip: #E8DAEF;
+    --radius: 10px;
+    --coffee-bg: #F4ECE3;
+    --coffee-title: #4A3322;
+    --stop-red: #C0392B;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: white;
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .header h1 { font-size: 1.4em; font-weight: 700; margin-bottom: 4px; }
+  .header p { font-size: 0.85em; opacity: 0.8; }
+
+  .container { max-width: 600px; margin: 0 auto; padding: 12px; }
+
+  /* Top-level collapsible sections */
+  details.top-section {
+    margin-bottom: 10px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  details.top-section > summary {
+    padding: 14px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1em;
+    color: var(--text);
+    list-style: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  details.top-section > summary::-webkit-details-marker { display: none; }
+  details.top-section > summary::marker { display: none; content: ''; }
+  details.top-section > summary:active { background: #f5f5f5; }
+
+  .section-icon { font-size: 1.3em; flex-shrink: 0; width: 32px; text-align: center; }
+  .section-label { flex: 1; }
+  .section-label .title { font-weight: 600; font-size: 0.95em; }
+  .section-label .subtitle { font-size: 0.78em; color: var(--light); margin-top: 2px; }
+
+  .section-chevron {
+    font-size: 0.8em;
+    color: var(--light);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  details[open] > summary > .section-chevron { transform: rotate(180deg); }
+
+  .section-body {
+    padding: 0 16px 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Day cards within overview */
+  .day-card {
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-top: 10px;
+  }
+  .day-card .day-title { font-weight: 700; font-size: 0.95em; color: var(--text); }
+  .day-card .day-route { font-size: 0.82em; color: var(--subtle); margin-top: 2px; }
+  .day-card .day-stops { font-size: 0.8em; color: var(--light); margin-top: 8px; }
+  .day-card .day-stops li { margin-bottom: 3px; list-style: none; padding-left: 0; }
+  .day-card .day-stops li::before { content: '\2022 '; color: var(--light); }
+
+  .day-card.sunshine { background: var(--sunshine); }
+  .day-card.rain { background: var(--rain); }
+  .day-card.any { background: var(--any); }
+  .day-card.daytrip { background: var(--daytrip); }
+
+  .overview-tip {
+    background: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.82em;
+    color: var(--subtle);
+    margin-top: 12px;
+  }
+
+  /* Nested day details within Day Guides */
+  details.day-detail {
+    margin-top: 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--card);
+  }
+  details.day-detail > summary {
+    padding: 12px 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95em;
+    color: var(--text);
+    list-style: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  details.day-detail > summary::-webkit-details-marker { display: none; }
+  details.day-detail > summary::marker { display: none; content: ''; }
+  details.day-detail > summary:active { background: #f5f5f5; }
+
+  .day-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.85em;
+    color: white;
+    flex-shrink: 0;
+  }
+  .day-badge.sunshine { background: #d4a017; }
+  .day-badge.rain { background: #5b9bd5; }
+  .day-badge.any { background: #5cb85c; }
+  .day-badge.daytrip { background: #9b59b6; }
+
+  .day-detail-label { flex: 1; }
+  .day-detail-label .dtitle { font-weight: 600; font-size: 0.9em; }
+  .day-detail-label .dsubtitle { font-size: 0.75em; color: var(--light); margin-top: 1px; }
+
+  .day-detail-body { padding: 0 14px 14px; }
+
+  .day-overview {
+    font-size: 0.85em;
+    color: var(--subtle);
+    line-height: 1.6;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Stop cards */
+  .stop {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .stop-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--stop-red);
+    color: white;
+    font-weight: 700;
+    font-size: 0.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .stop-content { flex: 1; }
+  .stop-name { font-weight: 700; font-size: 0.9em; }
+  .stop-timing { font-size: 0.75em; color: var(--light); margin-top: 1px; }
+  .stop-desc { font-size: 0.82em; color: var(--subtle); margin-top: 4px; line-height: 1.5; }
+  .stop-tips { margin-top: 6px; }
+  .stop-tip {
+    font-size: 0.78em;
+    color: var(--subtle);
+    padding: 3px 0 3px 16px;
+    position: relative;
+  }
+  .stop-tip::before {
+    content: '💡';
+    position: absolute;
+    left: 0;
+    font-size: 0.85em;
+  }
+
+  /* Coffee section */
+  .coffee-section {
+    background: var(--coffee-bg);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-top: 14px;
+  }
+  .coffee-header {
+    font-weight: 700;
+    font-size: 0.88em;
+    color: var(--coffee-title);
+    margin-bottom: 10px;
+  }
+  .coffee-spot { margin-bottom: 10px; }
+  .coffee-spot:last-child { margin-bottom: 0; }
+  .coffee-name { font-weight: 600; font-size: 0.85em; color: var(--coffee-title); }
+  .coffee-rating { font-size: 0.75em; color: var(--light); }
+  .coffee-addr { font-size: 0.75em; color: var(--light); margin-top: 1px; }
+  .coffee-desc { font-size: 0.8em; color: var(--subtle); margin-top: 3px; line-height: 1.5; }
+
+  /* Evening section */
+  .evening-section {
+    background: #e8e8e8;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-top: 14px;
+  }
+  .evening-title { font-weight: 700; font-size: 0.88em; color: var(--text); margin-bottom: 4px; }
+  .evening-desc { font-size: 0.82em; color: var(--subtle); line-height: 1.5; }
+
+  /* Offline indicator */
+  .offline-badge {
+    display: none;
+    position: fixed;
+    top: 8px;
+    right: 8px;
+    background: #e74c3c;
+    color: white;
+    font-size: 0.7em;
+    padding: 3px 8px;
+    border-radius: 12px;
+    z-index: 100;
+  }
+  body.offline .offline-badge { display: block; }
+</style>
+</head>
+<body>
+
+<div class="offline-badge">Offline</div>
+
+<div class="header">
+  <h1>Copenhagen Family Holiday</h1>
+  <p>5–12 July 2026 · Scott, Maggi, Lucie & Isaac</p>
+</div>
+
+<div class="container">
+
+  <!-- ========== OVERVIEW ========== -->
+  <details class="top-section" open>
+    <summary>
+      <span class="section-icon">🗺️</span>
+      <span class="section-label">
+        <div class="title">Trip Overview</div>
+        <div class="subtitle">8 day options — pick 6 based on weather</div>
+      </span>
+      <span class="section-chevron">▼</span>
+    </summary>
+    <div class="section-body">
+
+      <div class="day-card sunshine">
+        <div class="day-title">Day A: Waterfront North ☀️</div>
+        <div class="day-route">Nyhavn → Amalienborg → Little Mermaid · 4–5 hours</div>
+        <ul class="day-stops">
+          <li>Nyhavn canal — colourful waterfront, outdoor cafés, canal boat tour departs here</li>
+          <li>Canal boat tour — best way to see the city from the water, 1 hour, Copenhagen Card included</li>
+          <li>Amalienborg Palace — changing of the guard at noon, free to watch</li>
+          <li>Designmuseum Danmark — world class design collection, right next to Amalienborg</li>
+          <li>Kastellet — star-shaped fortress, free to wander, beautiful green grounds</li>
+          <li>The Little Mermaid — iconic, worth seeing once, easy 15 min walk from Amalienborg</li>
+        </ul>
+      </div>
+
+      <div class="day-card rain">
+        <div class="day-title">Day B: Indre By Core 🌧️</div>
+        <div class="day-route">Strøget → Round Tower → Christiansborg → National Museum · 5–6 hours</div>
+        <ul class="day-stops">
+          <li>Strøget — Europe's longest pedestrian street, shops, street performers, free</li>
+          <li>Round Tower — panoramic city views via unique spiral ramp, Copenhagen Card included</li>
+          <li>Christiansborg Palace — Danish Parliament, free tower with best city views</li>
+          <li>National Museum — free entry, outstanding Viking and Danish history collections</li>
+          <li>Gammel Strand — atmospheric waterfront square, great lunch spots nearby</li>
+        </ul>
+      </div>
+
+      <div class="day-card any">
+        <div class="day-title">Day C: North, Gardens & Nørrebro 🌧️/☀️</div>
+        <div class="day-route">Torvehallerne → Rosenborg → SMK → Botanical Garden → Nørrebro · 5–7 hours</div>
+        <ul class="day-stops">
+          <li>Torvehallerne — Copenhagen's famous food market, 60+ stalls, perfect for breakfast</li>
+          <li>Rosenborg Castle — Danish Crown Jewels, beautiful moated castle, Copenhagen Card included</li>
+          <li>King's Garden — free, lovely grounds to picnic in if sunny</li>
+          <li>SMK National Gallery — free permanent collection, 700 years of Danish art</li>
+          <li>Botanical Garden — free, beautiful glasshouses work even in rain</li>
+        </ul>
+      </div>
+
+      <div class="day-card any">
+        <div class="day-title">Day D: Christianshavn 🌧️/☀️</div>
+        <div class="day-route">Canals → Church of Our Saviour → Christiania → Reffen · 4–6 hours</div>
+        <ul class="day-stops">
+          <li>Christianshavn canals — beautiful waterside walks, café terraces, very photogenic</li>
+          <li>Church of Our Saviour — famous spiral tower with city views, climb the outside</li>
+          <li>Freetown Christiania — unique self-governing community, fascinating wander, free</li>
+          <li>Reffen street food market — great outdoor food stalls on the waterfront</li>
+          <li>More relaxed pace — this neighbourhood rewards slow wandering</li>
+        </ul>
+      </div>
+
+      <div class="day-card sunshine">
+        <div class="day-title">Day E: Beach & Parks ☀️</div>
+        <div class="day-route">Amager Beach → Frederiksberg Gardens → Zoo fence → Vesterbro · 5–6 hours</div>
+        <ul class="day-stops">
+          <li>Amager Beach Park — sandy beach, clean Øresund water, 20 mins by Metro</li>
+          <li>Beach volleyball, paddleboarding, sunbathing — popular with locals in summer</li>
+          <li>Frederiksberg Gardens — gorgeous royal park, free entry, boating lake, peacocks</li>
+          <li>Copenhagen Zoo border — see giraffes and elephants from the park fence for free</li>
+          <li>Vesterbro neighbourhood — trendy area, great evening food options</li>
+        </ul>
+      </div>
+
+      <div class="day-card daytrip">
+        <div class="day-title">Day F: Malmö, Sweden 🚂</div>
+        <div class="day-route">Stortorget → Lilla Torg → Malmöhus → Turning Torso · Full day</div>
+        <ul class="day-stops">
+          <li>Øresund Bridge crossing — iconic bridge/tunnel, spectacular views</li>
+          <li>Stortorget & Lilla Torg — beautiful old town squares, cobbled and charming</li>
+          <li>Malmöhus Castle — moated castle, museum inside</li>
+          <li>Turning Torso — iconic twisted skyscraper visible from the waterfront</li>
+          <li>Different country, different currency (Swedish Krona), different atmosphere</li>
+        </ul>
+      </div>
+
+      <div class="day-card daytrip">
+        <div class="day-title">Day G: Kronborg Castle 🚂</div>
+        <div class="day-route">45 min train to Helsingør · Kronborg → Casemates → Harbour Town · 5–6 hours</div>
+        <ul class="day-stops">
+          <li>Kronborg Castle — Shakespeare's Hamlet's Castle, UNESCO World Heritage Site</li>
+          <li>Dramatic coastal setting — Sweden visible across the water</li>
+          <li>Casemates — underground tunnels beneath the castle, kids love it</li>
+          <li>Helsingør town — charming harbour town worth an hour's wander</li>
+          <li>Copenhagen Card covers both the train and castle entry</li>
+        </ul>
+      </div>
+
+      <div class="day-card daytrip">
+        <div class="day-title">Day H: Frederiksborg Castle 🚂</div>
+        <div class="day-route">45 min train to Hillerød · Castle → Museum → Baroque Gardens · 4–5 hours</div>
+        <ul class="day-stops">
+          <li>Frederiksborg Castle — Denmark's grandest Renaissance castle, set on lake islands</li>
+          <li>Museum of National History — Denmark's finest portrait collection</li>
+          <li>Baroque gardens — among the best in Scandinavia, beautiful in July</li>
+          <li>Hillerød town — quiet, authentic Danish town, far fewer tourists</li>
+          <li>Can combine with Kronborg on same day if ambitious</li>
+        </ul>
+      </div>
+
+      <div class="overview-tip">
+        <strong>Tip:</strong> Days A & E best in sunshine. Days B, C, D, F, G, H work in any weather. Day trips F, G, H can be combined (G + H on one ambitious day). Pick 6 of the 8 based on weather and energy.
+      </div>
+
+    </div>
+  </details>
+
+  <!-- ========== DAY GUIDES ========== -->
+  <details class="top-section">
+    <summary>
+      <span class="section-icon">📋</span>
+      <span class="section-label">
+        <div class="title">Day Guides</div>
+        <div class="subtitle">Detailed stops, tips & coffee for each day</div>
+      </span>
+      <span class="section-chevron">▼</span>
+    </summary>
+    <div class="section-body">
+
+      <!-- DAY A -->
+      <details class="day-detail">
+        <summary>
+          <span class="day-badge sunshine">A</span>
+          <span class="day-detail-label">
+            <div class="dtitle">Waterfront North ☀️</div>
+            <div class="dsubtitle">Nyhavn → Amalienborg → Little Mermaid · 4–5 hours</div>
+          </span>
+          <span class="section-chevron">▼</span>
+        </summary>
+        <div class="day-detail-body">
+          <div class="day-overview">
+            Best in sunshine · The classic Copenhagen waterfront walk from Nyhavn north to the Little Mermaid. Start with a canal boat tour from Nyhavn, see the guard change at Amalienborg, explore the Designmuseum, wander through the star-shaped Kastellet fortress, and finish at the Little Mermaid statue. Everything is along the harbourfront — a natural, flat walk of about 3 km. Start the day close to the hotel.
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">1</div>
+            <div class="stop-content">
+              <div class="stop-name">Nyhavn</div>
+              <div class="stop-timing">Start here — mid-morning · 30–45 min</div>
+              <div class="stop-desc">Copenhagen's most iconic view — colourful 17th-century townhouses lining a canal packed with wooden sailing boats. Hans Christian Andersen lived in three different houses here. Cafés and restaurants line both sides, but better value on the sunny (south) side.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Sit on the canal edge on the sunny side with a coffee — free and better than any restaurant terrace</div>
+                <div class="stop-tip">This is where canal boat tours depart — do the tour first, then walk the route</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">2</div>
+            <div class="stop-content">
+              <div class="stop-name">Canal Boat Tour</div>
+              <div class="stop-timing">Mid-morning · 60 min</div>
+              <div class="stop-desc">The best way to see Copenhagen from the water. Boats depart from Nyhavn and cruise past the Opera House, Christianshavn, Black Diamond Library, Christiansborg, and the Little Mermaid. Commentary in English and Danish. Covered by Copenhagen Card.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Copenhagen Card covers the tour — just show it and board</div>
+                <div class="stop-tip">Sit on the right side for the best views of the key landmarks</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">3</div>
+            <div class="stop-content">
+              <div class="stop-name">Amalienborg Palace</div>
+              <div class="stop-timing">Around midday · 30–45 min</div>
+              <div class="stop-desc">The Danish Royal Family's winter residence — four identical rococo palaces around an octagonal courtyard. The changing of the Royal Guard happens at noon daily and is free to watch. The palace museum shows royal apartments from the 1800s.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Arrive by 11:45 for the guard change — the guards march from Rosenborg Castle through the city</div>
+                <div class="stop-tip">The marble church (Frederiks Kirke) across the road is free and has a spectacular dome</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">4</div>
+            <div class="stop-content">
+              <div class="stop-name">Designmuseum Danmark</div>
+              <div class="stop-timing">After Amalienborg · 45–60 min</div>
+              <div class="stop-desc">World-class collection of Danish and international design — furniture, fashion, posters, and industrial design. Housed in a beautiful 18th-century rococo building. The Danish chair collection alone is worth the visit. Great museum shop.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Copenhagen Card covers entry — right next door to Amalienborg</div>
+                <div class="stop-tip">The museum café in the courtyard is one of the nicest in Copenhagen</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">5</div>
+            <div class="stop-content">
+              <div class="stop-name">Kastellet</div>
+              <div class="stop-timing">Afternoon · 20–30 min</div>
+              <div class="stop-desc">One of the best-preserved star fortresses in Northern Europe, still an active military base. Walk the ramparts for great harbour views, wander the tree-lined paths, and see the beautiful old barracks. Free to enter. The windmill on the ramparts is a highlight.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Walk along the top of the ramparts for the best views</div>
+                <div class="stop-tip">The Little Mermaid is just outside the north gate — easy transition to the next stop</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">6</div>
+            <div class="stop-content">
+              <div class="stop-name">The Little Mermaid</div>
+              <div class="stop-timing">Afternoon · 15–20 min</div>
+              <div class="stop-desc">Copenhagen's most famous landmark — a bronze statue on a rock at the waterside since 1913, inspired by Hans Christian Andersen's fairy tale. She's smaller than you expect but worth seeing once. Gets very crowded — arrive early or late to avoid the worst crush.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">She's small — manage expectations with the kids. The setting is prettier than the statue itself.</div>
+                <div class="stop-tip">From here you can walk back via the harbourfront or catch bus 26 back towards the centre</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="coffee-section">
+            <div class="coffee-header">☕ Coffee stops nearby</div>
+            <div class="coffee-spot">
+              <div class="coffee-name">Democratic Coffee</div>
+              <div class="coffee-rating">4.5 ★ (600+ reviews)</div>
+              <div class="coffee-addr">Krystalgade 21 — near Kongens Nytorv/Nyhavn end</div>
+              <div class="coffee-desc">Bright, airy specialty coffee bar with some of the friendliest baristas in the city. Excellent flat whites and pour-overs. A short walk from Nyhavn before you start the route.</div>
+            </div>
+            <div class="coffee-spot">
+              <div class="coffee-name">The Coffee Factory</div>
+              <div class="coffee-rating">4.4 ★ (450+ reviews)</div>
+              <div class="coffee-addr">Gothersgade 21 — between Nyhavn and Amalienborg</div>
+              <div class="coffee-desc">Cosy neighbourhood café on the route between stops. Good espresso drinks, freshly baked pastries, and a relaxed vibe. Popular with locals on their morning commute.</div>
+            </div>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- DAY B -->
+      <details class="day-detail">
+        <summary>
+          <span class="day-badge rain">B</span>
+          <span class="day-detail-label">
+            <div class="dtitle">Indre By Core 🌧️</div>
+            <div class="dsubtitle">Strøget → Round Tower → Christiansborg → National Museum · 5–6 hours</div>
+          </span>
+          <span class="section-chevron">▼</span>
+        </summary>
+        <div class="day-detail-body">
+          <div class="day-overview">
+            Good in rain · The historic heart of Copenhagen — this route threads through the city's medieval core and works brilliantly on a rainy day since most stops are indoors. Start with a stroll down Strøget (Europe's longest pedestrian street), climb the Round Tower for city views, then explore Christiansborg Palace and the National Museum. Finish at atmospheric Gammel Strand before heading to Tivoli for the evening. Everything is within 15 minutes' walk of the hotel.
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">1</div>
+            <div class="stop-content">
+              <div class="stop-name">Strøget</div>
+              <div class="stop-timing">Start mid-morning · 45–60 min</div>
+              <div class="stop-desc">Europe's longest pedestrian shopping street — stretches 1.1 km from Rådhuspladsen to Kongens Nytorv. Street performers, Danish design shops, and LEGO flagship store along the way.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Start from the Kongens Nytorv end (closer to hotel) and walk west</div>
+                <div class="stop-tip">Don't feel obliged to walk the full length — duck off into the side streets for better finds</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">2</div>
+            <div class="stop-content">
+              <div class="stop-name">Round Tower (Rundetaarn)</div>
+              <div class="stop-timing">Late morning · 30–45 min</div>
+              <div class="stop-desc">Built in 1642 as an astronomical observatory. Instead of stairs, you walk up a unique 209-metre spiral ramp — wide enough that a horse and carriage once drove up it. Panoramic views from the top.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Copenhagen Card covers entry — just scan and walk in</div>
+                <div class="stop-tip">The glass floor at the top is fun for the kids (and terrifying for the parents)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">3</div>
+            <div class="stop-content">
+              <div class="stop-name">Christiansborg Palace</div>
+              <div class="stop-timing">Around midday · 60–90 min</div>
+              <div class="stop-desc">Denmark's seat of power — parliament, prime minister's office, and Supreme Court all under one roof. The tower is free and offers the best panoramic views in Copenhagen, even better than Round Tower.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">The tower is FREE — no ticket needed. Go here for views if the weather clears</div>
+                <div class="stop-tip">The Royal Reception Rooms are impressive but skippable with kids — prioritise the tower</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">4</div>
+            <div class="stop-content">
+              <div class="stop-name">National Museum</div>
+              <div class="stop-timing">Early afternoon · 60–90 min</div>
+              <div class="stop-desc">Denmark's largest museum of cultural history. Outstanding Viking collection, rune stones, and a brilliant free children's museum where kids can try on armour and play in a Viking ship.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Free entry — one of Copenhagen's best freebies</div>
+                <div class="stop-tip">The children's museum section is brilliant for Isaac and still fun for Lucie</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">5</div>
+            <div class="stop-content">
+              <div class="stop-name">Gammel Strand</div>
+              <div class="stop-timing">Mid-afternoon · 20–30 min</div>
+              <div class="stop-desc">Atmospheric canal-side square — the old fish market. Now home to good restaurants and a lovely spot to sit and watch canal boats pass. Great for a late lunch or afternoon snack.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Try smørrebrød (open sandwiches) at one of the canal-side restaurants</div>
+                <div class="stop-tip">Canal boat tours also depart from here if you want a second go</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="coffee-section">
+            <div class="coffee-header">☕ Coffee stops nearby</div>
+            <div class="coffee-spot">
+              <div class="coffee-name">Coffee Collective</div>
+              <div class="coffee-rating">4.6 ★ (1,534 reviews)</div>
+              <div class="coffee-addr">Kristen Bernikows Gade 2 — just off Strøget</div>
+              <div class="coffee-desc">Copenhagen's pioneering specialty roaster, in a beautifully converted old bodega. The cardamom buns are legendary. Charming inner courtyard if the weather's decent.</div>
+            </div>
+            <div class="coffee-spot">
+              <div class="coffee-name">April Coffee</div>
+              <div class="coffee-rating">4.7 ★ (263 reviews)</div>
+              <div class="coffee-addr">Pilestræde 39 — 2 min from Round Tower</div>
+              <div class="coffee-desc">World-class specialty coffee in a minimalist showroom inside a clothing store. Extremely limited seating but the coffee is exceptional — clean, balanced, full of character.</div>
+            </div>
+            <div class="coffee-spot">
+              <div class="coffee-name">La Cabra</div>
+              <div class="coffee-rating">4.5 ★ on Google</div>
+              <div class="coffee-addr">Møntergade 3A — near Round Tower</div>
+              <div class="coffee-desc">Cult-following Danish roaster. Also inside a clothing store (Another Aspect) with very limited seating. Go for the coffee, not the ambience — it's outstanding.</div>
+            </div>
+          </div>
+
+          <div class="evening-section">
+            <div class="evening-title">🌙 Evening: Tivoli Gardens</div>
+            <div class="evening-desc">15 min walk from Gammel Strand. The world's second-oldest amusement park — magical after dark with thousands of lights. Book tickets online in advance for July. Rides, gardens, live music, and excellent food stalls. Budget 3–4 hours.</div>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- DAY C -->
+      <details class="day-detail">
+        <summary>
+          <span class="day-badge any">C</span>
+          <span class="day-detail-label">
+            <div class="dtitle">North, Gardens & Nørrebro 🌧️/☀️</div>
+            <div class="dsubtitle">Torvehallerne → Rosenborg → SMK → Botanical Garden → Nørrebro · 5–7 hours</div>
+          </span>
+          <span class="section-chevron">▼</span>
+        </summary>
+        <div class="day-detail-body">
+          <div class="day-overview">
+            Any weather · A day that mixes indoor culture with green spaces — works in any weather since you can flex between gardens (sunshine) and galleries (rain). Start with breakfast at Torvehallerne food market, see the Crown Jewels at Rosenborg, browse 700 years of art at SMK, wander the Botanical Garden, then cross the lakes into trendy Nørrebro for street food and the atmospheric Assistens Cemetery. About 20 min walk from the hotel to the first stop, or one Metro stop to Nørreport.
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">1</div>
+            <div class="stop-content">
+              <div class="stop-name">Torvehallerne Market</div>
+              <div class="stop-timing">Start here — breakfast · 45–60 min</div>
+              <div class="stop-desc">Copenhagen's famous covered food market — 60+ stalls under two glass halls. Perfect for breakfast: fresh pastries, smørrebrød, smoothie bowls, and Coffee Collective's Torvehallerne outpost.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">The Coffee Collective stall here is one of their best — grab coffee before exploring</div>
+                <div class="stop-tip">Try the flødeboller (chocolate-covered marshmallow treats) from Summerbird</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">2</div>
+            <div class="stop-content">
+              <div class="stop-name">Rosenborg Castle</div>
+              <div class="stop-timing">Mid-morning · 60–90 min</div>
+              <div class="stop-desc">A beautiful 17th-century Renaissance castle built by Christian IV. Home to the Danish Crown Jewels in the basement treasury, plus lavishly decorated royal rooms upstairs. Set in the lovely King's Garden.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Copenhagen Card covers entry — the Crown Jewels alone are worth the visit</div>
+                <div class="stop-tip">King's Garden is free and lovely for a sit-down if sunny — locals picnic here</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">3</div>
+            <div class="stop-content">
+              <div class="stop-name">SMK National Gallery</div>
+              <div class="stop-timing">Late morning · 45–90 min</div>
+              <div class="stop-desc">Denmark's largest art museum — 700 years of art from the Danish Golden Age to contemporary. The permanent collection is free. Right next door to Rosenborg, so an easy add-on.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Free permanent collection — only special exhibitions need tickets</div>
+                <div class="stop-tip">The museum café has excellent Danish lunch if you need a break</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">4</div>
+            <div class="stop-content">
+              <div class="stop-name">Botanical Garden</div>
+              <div class="stop-timing">Early afternoon · 30–45 min</div>
+              <div class="stop-desc">Free to enter, with beautiful 19th-century glasshouses that work perfectly in the rain. The Palm House is the highlight — a spectacular Victorian-era iron and glass structure full of tropical plants.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Glasshouses are warm and steamy — great rain backup plan</div>
+                <div class="stop-tip">Quick detour from SMK — entrance is on Gothersgade, 3 min walk</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">5</div>
+            <div class="stop-content">
+              <div class="stop-name">Nørrebro Neighbourhood</div>
+              <div class="stop-timing">Afternoon · 60–90 min</div>
+              <div class="stop-desc">Copenhagen's most diverse and vibrant neighbourhood. Jægersborggade is the key street — independent shops, ceramics studios, craft beer bars, and some of the city's best cafés all in one block.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Jægersborggade is the must-visit street — a concentrated strip of cool independents</div>
+                <div class="stop-tip">Good for teens — vintage shops, street art, and great food</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">6</div>
+            <div class="stop-content">
+              <div class="stop-name">Assistens Cemetery</div>
+              <div class="stop-timing">Late afternoon · 20–30 min</div>
+              <div class="stop-desc">Not as morbid as it sounds — locals use this as a park. Hans Christian Andersen and Søren Kierkegaard are buried here. Tree-lined paths, benches, and a surprisingly peaceful atmosphere.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Hans Christian Andersen's grave is well-signposted — look for the flowers</div>
+                <div class="stop-tip">Locals sunbathe and picnic here — it genuinely functions as a park</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="coffee-section">
+            <div class="coffee-header">☕ Coffee stops nearby</div>
+            <div class="coffee-spot">
+              <div class="coffee-name">Coffee Collective (Torvehallerne)</div>
+              <div class="coffee-rating">4.6 ★ (1,000+ reviews)</div>
+              <div class="coffee-addr">Torvehallerne, Frederiksborggade 21 — at Stop 1</div>
+              <div class="coffee-desc">The original and best Torvehallerne stall. Copenhagen's pioneering specialty roaster — perfect flat whites and excellent pastries. Grab one to walk around the market with.</div>
+            </div>
+            <div class="coffee-spot">
+              <div class="coffee-name">Darcy's Kaffe</div>
+              <div class="coffee-rating">4.6 ★ (663 reviews)</div>
+              <div class="coffee-addr">Rantzausgade 2, Nørrebro — near Stop 5</div>
+              <div class="coffee-desc">One of the city's finest coffee bars. Owner Darcy curates beans from the world's best roasters — April, Koppi, La Cabra, Coffee Collective — and serves them with a smile and perfect pastries.</div>
+            </div>
+            <div class="coffee-spot">
+              <div class="coffee-name">Andersen & Maillard</div>
+              <div class="coffee-rating">4.5 ★ (800+ reviews)</div>
+              <div class="coffee-addr">Nørrebrogade 62, Nørrebro — near Stop 5</div>
+              <div class="coffee-desc">Combined café, roastery, and exceptional bakery in a converted bank. They roast their own beans, and the croissants are ranked among Copenhagen's best. Worth a detour.</div>
+            </div>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- DAY D -->
+      <details class="day-detail">
+        <summary>
+          <span class="day-badge any">D</span>
+          <span class="day-detail-label">
+            <div class="dtitle">Christianshavn 🌧️/☀️</div>
+            <div class="dsubtitle">Canals → Church of Our Saviour → Christiania → Reffen · 4–6 hours</div>
+          </span>
+          <span class="section-chevron">▼</span>
+        </summary>
+        <div class="day-detail-body">
+          <div class="day-overview">
+            Any weather · Christianshavn is Copenhagen's canal-laced neighbourhood across the harbour — quieter, more residential, with a completely different atmosphere. Wander the canals, climb the famous spiral tower at Church of Our Saviour, explore the alternative Freetown Christiania, and finish with street food at Reffen on the waterfront. A more relaxed pace than the city centre days.
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">1</div>
+            <div class="stop-content">
+              <div class="stop-name">Christianshavn Canals</div>
+              <div class="stop-timing">Start mid-morning · 30–45 min</div>
+              <div class="stop-desc">Wander the tree-lined canals of Christianshavn — houseboats, colourful buildings, and a much quieter atmosphere than the main city centre. The area was built by Christian IV in the 1600s as a merchant's quarter.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Walk along Overgaden Oven Vandet and Overgaden Neden Vandet for the best canal views</div>
+                <div class="stop-tip">The houseboats are fun to look at — some are quite elaborate</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">2</div>
+            <div class="stop-content">
+              <div class="stop-name">Church of Our Saviour</div>
+              <div class="stop-timing">Late morning · 45–60 min</div>
+              <div class="stop-desc">The baroque church with the famous external spiral staircase winding around its 90-metre spire. Climb 400 steps for spectacular 360° views — the last section is outside, spiralling upward on a narrowing golden staircase. Not for the faint-hearted!</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Closes around 7pm — go earlier in the day when queues are shorter</div>
+                <div class="stop-tip">The external spiral gets narrow at the top — younger kids might find it scary. Isaac will love it.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">3</div>
+            <div class="stop-content">
+              <div class="stop-name">Freetown Christiania</div>
+              <div class="stop-timing">Around midday · 45–60 min</div>
+              <div class="stop-desc">Copenhagen's famous alternative community, founded in 1971 on an abandoned military base. Street art, DIY architecture, organic cafés, live music venues, and a unique counterculture vibe. A fascinating social experiment.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">No photos on Pusher Street (the main drag) — this is strictly enforced</div>
+                <div class="stop-tip">The rest of Christiania is fine to photograph and very photogenic — street art everywhere</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">4</div>
+            <div class="stop-content">
+              <div class="stop-name">Reffen Street Food Market</div>
+              <div class="stop-timing">Afternoon / early evening · 60–90 min</div>
+              <div class="stop-desc">Copenhagen's biggest street food market — a sprawling waterfront space with 40+ food stalls from around the world. BBQ, tacos, Thai, Danish hot dogs, craft beer. Great harbour views and a relaxed festival atmosphere.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Open seasonally (usually April–October) — check ahead but July should be fine</div>
+                <div class="stop-tip">Bring cash and card — some stalls are card-only, some accept both</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="coffee-section">
+            <div class="coffee-header">☕ Coffee stops nearby</div>
+            <div class="coffee-spot">
+              <div class="coffee-name">Original Coffee</div>
+              <div class="coffee-rating">4.4 ★ on Google</div>
+              <div class="coffee-addr">Overgaden Neden Vandet 41 — on the canal</div>
+              <div class="coffee-desc">Canal-side café with charming crooked windows and views of Our Saviour's Church spire. Locally roasted beans, organic bakery goods. A lovely spot to sit and watch the boats.</div>
+            </div>
+            <div class="coffee-spot">
+              <div class="coffee-name">Prolog Coffee Bar</div>
+              <div class="coffee-rating">4.2 ★ (Tripadvisor)</div>
+              <div class="coffee-addr">Refshalevej area — near Reffen</div>
+              <div class="coffee-desc">Award-winning Copenhagen roaster with a focus on single-origin beans and meticulous brewing. The baristas are passionate and knowledgeable. Chilled, quiet atmosphere.</div>
+            </div>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- DAY E -->
+      <details class="day-detail">
+        <summary>
+          <span class="day-badge sunshine">E</span>
+          <span class="day-detail-label">
+            <div class="dtitle">Beach & Parks ☀️</div>
+            <div class="dsubtitle">Amager Beach → Frederiksberg Gardens → Zoo fence → Vesterbro · 5–6 hours</div>
+          </span>
+          <span class="section-chevron">▼</span>
+        </summary>
+        <div class="day-detail-body">
+          <div class="day-overview">
+            Best in sunshine · A sunshine day — best saved for the warmest weather. Start with a morning at Amager Beach Park (a proper sandy beach, easily reached by Metro in 15 min), then cross town to the beautiful Frederiksberg Gardens, peek at elephants and giraffes over the Zoo fence for free, and finish with an afternoon exploring the trendy Vesterbro neighbourhood. This day covers more ground than others — you'll use the Metro between stops.
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">1</div>
+            <div class="stop-content">
+              <div class="stop-name">Amager Beach Park</div>
+              <div class="stop-timing">Start here — morning · 2–3 hours</div>
+              <div class="stop-desc">A proper sandy beach with shallow water, perfect for families. The artificial island (Amager Strandpark) has 2 km of beach, a lagoon, kayak rental, and beach volleyball. Metro M2 from Kongens Nytorv direct to Amager Strand station — 15 min.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Take the Metro M2 from Kongens Nytorv (2 min walk from hotel) direct to Amager Strand</div>
+                <div class="stop-tip">The lagoon side is calmer and shallower — better for younger swimmers</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">2</div>
+            <div class="stop-content">
+              <div class="stop-name">Frederiksberg Gardens</div>
+              <div class="stop-timing">Early afternoon · 45–60 min</div>
+              <div class="stop-desc">Copenhagen's most beautiful park — a romantic English landscape garden with lakes, bridges, islands, and resident herons. The palace sits at one end (exterior only). Free to enter and a lovely spot for a picnic or ice cream.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">The Chinese Pavilion and the follies around the lake are the highlights</div>
+                <div class="stop-tip">Combine with the Zoo fence stop — the gardens border the zoo directly</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">3</div>
+            <div class="stop-content">
+              <div class="stop-name">Copenhagen Zoo Fence</div>
+              <div class="stop-timing">Afternoon · 20–30 min</div>
+              <div class="stop-desc">The Zoo backs onto Frederiksberg Gardens, and from the right spots along the fence you can see elephants, giraffes, and other animals completely free. A fun bonus stop especially if you don't want to pay full zoo entry.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Walk along the southern edge of Frederiksberg Gardens — the elephant house is visible</div>
+                <div class="stop-tip">The giraffes are often visible near the Roskildevej side of the fence</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">4</div>
+            <div class="stop-content">
+              <div class="stop-name">Vesterbro Neighbourhood</div>
+              <div class="stop-timing">Late afternoon · 60–90 min</div>
+              <div class="stop-desc">Copenhagen's hippest neighbourhood — once gritty, now full of craft breweries, vintage shops, design stores, and excellent restaurants. Værnedamsvej is the prettiest street, sometimes called 'Little Paris'. The Meatpacking District (Kødbyen) has galleries and restaurants.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Værnedamsvej is the key street — cheese shops, wine bars, bookshops, and great cafés</div>
+                <div class="stop-tip">Good for teens — vintage clothing, street culture, and great food scene</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="coffee-section">
+            <div class="coffee-header">☕ Coffee stops nearby</div>
+            <div class="coffee-spot">
+              <div class="coffee-name">Alice Ice Cream & Coffee</div>
+              <div class="coffee-rating">4.5 ★ (535 reviews)</div>
+              <div class="coffee-addr">Markmandsgade 1, Amager — near the beach Metro</div>
+              <div class="coffee-desc">Started as an ice cream shop, now one of Amager's cosiest coffee spots. Serves Swedish Koppi Roasters coffee known for clean, bright flavours. The croissants are perfection.</div>
+            </div>
+            <div class="coffee-spot">
+              <div class="coffee-name">Rist Kaffebar</div>
+              <div class="coffee-rating">4.5 ★ (742 Tripadvisor)</div>
+              <div class="coffee-addr">Værnedamsvej 4, Frederiksberg/Vesterbro — at Stop 4</div>
+              <div class="coffee-desc">Small, charming coffee shop on Copenhagen's prettiest street. Serves Coffee Collective beans with friendly, knowledgeable staff. Excellent pastries and very affordable for the area.</div>
+            </div>
+            <div class="coffee-spot">
+              <div class="coffee-name">Coffee Collective (Frederiksberg)</div>
+              <div class="coffee-rating">4.6 ★ (1,534 reviews)</div>
+              <div class="coffee-addr">Godthåbsvej 34B, Frederiksberg — near Stop 2</div>
+              <div class="coffee-desc">The Frederiksberg outpost includes the roastery and a beautiful café in a converted industrial building. This is where the magic happens — watch beans being roasted while you drink.</div>
+            </div>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- DAY F -->
+      <details class="day-detail">
+        <summary>
+          <span class="day-badge daytrip">F</span>
+          <span class="day-detail-label">
+            <div class="dtitle">Malmö, Sweden 🚂</div>
+            <div class="dsubtitle">35 min train · Stortorget → Lilla Torg → Malmöhus → Turning Torso · Full day</div>
+          </span>
+          <span class="section-chevron">▼</span>
+        </summary>
+        <div class="day-detail-body">
+          <div class="day-overview">
+            Day trip · A day trip across the Øresund Bridge to Sweden. Trains leave Copenhagen Central Station every 20 min (35 min journey, Copenhagen Card does NOT cover this — buy a separate Øresund ticket). Malmö is compact and walkable. Different country, different currency (Swedish Krona / SEK) — but cards are accepted everywhere. Malmö has its own distinct vibe: more relaxed than Copenhagen, excellent fika culture, and beautiful medieval squares.
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">1</div>
+            <div class="stop-content">
+              <div class="stop-name">Stortorget (Main Square)</div>
+              <div class="stop-timing">Start here — 10 min walk from station · 20–30 min</div>
+              <div class="stop-desc">Malmö's grand main square — dominated by the imposing 16th-century Town Hall and the equestrian statue of Karl X Gustav. The square hosts markets and events. Good orientation point for exploring the old town.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">The Town Hall basement restaurant (Rådhuskällaren) is surprisingly good for lunch</div>
+                <div class="stop-tip">Walk here from Malmö Central Station through the shopping streets — about 10 min</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">2</div>
+            <div class="stop-content">
+              <div class="stop-name">Lilla Torg</div>
+              <div class="stop-timing">Late morning · 30–45 min</div>
+              <div class="stop-desc">Malmö's most charming square — half-timbered 16th-century buildings around a cobblestoned plaza filled with café terraces. Much more intimate and photogenic than Stortorget. This is where locals come for fika.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">This is the postcard shot of Malmö — half-timbered houses, cobblestones, café umbrellas</div>
+                <div class="stop-tip">Stop for a proper Swedish fika (coffee + pastry) — it's practically compulsory here</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">3</div>
+            <div class="stop-content">
+              <div class="stop-name">Malmöhus Castle</div>
+              <div class="stop-timing">Midday · 60–90 min</div>
+              <div class="stop-desc">Scandinavia's oldest surviving Renaissance castle (1434). Now houses several museums including art, natural history, and a maritime museum with a submarine you can walk through. The castle grounds are free to wander.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">The submarine walkthrough is fun for kids — cramped but atmospheric</div>
+                <div class="stop-tip">The castle park (Slottsparken and Kungsparken) surrounds it — nice for a stroll</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">4</div>
+            <div class="stop-content">
+              <div class="stop-name">Turning Torso & Øresund Views</div>
+              <div class="stop-timing">Afternoon · 30–45 min</div>
+              <div class="stop-desc">Scandinavia's tallest building (190m) — a twisting skyscraper in the Västra Hamnen (Western Harbour) district. You can't go inside, but the surrounding area has great seaside promenades with views across the Øresund to Copenhagen and the bridge you crossed.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Walk along the seafront promenade — on a clear day you can see Copenhagen across the water</div>
+                <div class="stop-tip">The Västra Hamnen area has good swimming spots if it is hot</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="coffee-section">
+            <div class="coffee-header">☕ Coffee stops nearby</div>
+            <div class="coffee-spot">
+              <div class="coffee-name">Lilla Kafferosteriet</div>
+              <div class="coffee-rating">4.5 ★ (3,571 reviews)</div>
+              <div class="coffee-addr">Baltzarsgatan 24A — 2 min from Lilla Torg</div>
+              <div class="coffee-desc">Malmö's oldest micro-roastery, in a beautiful 17th-century townhouse. They roast their own beans on site. Famous for the carrot cake. Cosy, atmospheric, and beloved by locals.</div>
+            </div>
+            <div class="coffee-spot">
+              <div class="coffee-name">Solde Kaffebar</div>
+              <div class="coffee-rating">4.6 ★ (771 reviews)</div>
+              <div class="coffee-addr">Regementsgatan 2 — between Malmöhus and Turning Torso</div>
+              <div class="coffee-desc">Malmö's original specialty coffee bar since 2006. Roasts their own beans on site and supplies other cafés across Sweden. Great sandwiches, croissants, and a genuine neighbourhood feel.</div>
+            </div>
+          </div>
+
+          <div class="evening-section">
+            <div class="evening-title">📝 Practical notes: Malmö day trip</div>
+            <div class="evening-desc">Currency: Swedish Krona (SEK), not Danish Krone — but cards accepted everywhere. Train: buy Øresund ticket at Copenhagen Central (not covered by Copenhagen Card). Passport: bring ID just in case (EU/Schengen border). Last trains back run late.</div>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- DAY G -->
+      <details class="day-detail">
+        <summary>
+          <span class="day-badge daytrip">G</span>
+          <span class="day-detail-label">
+            <div class="dtitle">Kronborg Castle 🚂</div>
+            <div class="dsubtitle">45 min train to Helsingør · Kronborg → Casemates → Harbour Town · 5–6 hours</div>
+          </span>
+          <span class="section-chevron">▼</span>
+        </summary>
+        <div class="day-detail-body">
+          <div class="day-overview">
+            Day trip · A half-day trip north to Helsingør and the UNESCO-listed Kronborg Castle — Shakespeare's Hamlet castle. The train runs direct from Copenhagen Central (45 min, covered by Copenhagen Card). Kronborg is genuinely impressive: a massive Renaissance fortress jutting into the Øresund strait with Sweden visible across the water. The underground casemates are atmospheric and slightly spooky. The harbour town of Helsingør is charming enough for a wander and lunch. You'll be back in Copenhagen by late afternoon.
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">1</div>
+            <div class="stop-content">
+              <div class="stop-name">Kronborg Castle</div>
+              <div class="stop-timing">Arrive late morning · 90–120 min</div>
+              <div class="stop-desc">UNESCO World Heritage site and the setting for Shakespeare's Hamlet. A massive Renaissance fortress built in the 1420s, guarding the narrowest point of the Øresund strait. Stunning ballroom, royal apartments, and cannon-lined ramparts with views to Sweden.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Copenhagen Card covers both the train AND castle entry — just scan and go</div>
+                <div class="stop-tip">Look for the Holger Danske statue in the casemates — legend says he'll wake to defend Denmark</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">2</div>
+            <div class="stop-content">
+              <div class="stop-name">Casemates (Underground Tunnels)</div>
+              <div class="stop-timing">Included with castle visit · 20–30 min</div>
+              <div class="stop-desc">Dark, atmospheric underground tunnels beneath the castle — originally built for soldiers to shelter during sieges. Dimly lit with candles, slightly damp, and genuinely eerie. The statue of the mythical warrior Holger Danske sits in the deepest chamber.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Bring a phone torch — it's dark down there and the atmosphere is brilliant</div>
+                <div class="stop-tip">Isaac will love the spooky tunnels. Even Lucie might admit they are cool.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">3</div>
+            <div class="stop-content">
+              <div class="stop-name">Helsingør Harbour Town</div>
+              <div class="stop-timing">After the castle · 60–90 min</div>
+              <div class="stop-desc">Charming medieval harbour town with cobblestoned streets, colourful timber-framed houses, and waterfront restaurants. The harbour itself has views to Helsingborg in Sweden (you can take a 20-min ferry across if you fancy). Good for lunch and a relaxed wander.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Stengade is the main pedestrian street — good for a wander and an ice cream</div>
+                <div class="stop-tip">The ferry to Helsingborg, Sweden takes 20 min if you want a bonus country visit</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="coffee-section">
+            <div class="coffee-header">☕ Coffee stops nearby</div>
+            <div class="coffee-spot">
+              <div class="coffee-name">Strandvejsristeriet</div>
+              <div class="coffee-rating">4.8 ★ (794 reviews)</div>
+              <div class="coffee-addr">Kronborg 12A — right at the castle garrison buildings</div>
+              <div class="coffee-desc">North Zealand's first micro-roastery, housed in the historic garrison buildings of Kronborg Castle itself. Freshly roasted organic coffee in a uniquely atmospheric setting. A must-stop before or after the castle.</div>
+            </div>
+            <div class="coffee-spot">
+              <div class="coffee-name">Lagoni Kaffebar</div>
+              <div class="coffee-rating">4.6 ★ (Tripadvisor)</div>
+              <div class="coffee-addr">Svingelport 3, Simon Spies Plads — central Helsingør</div>
+              <div class="coffee-desc">Cosy independent café in the heart of Helsingør. Locals say it serves probably the best coffee in town — excellent cappuccinos with balanced bitterness and perfect foam. Great cakes too.</div>
+            </div>
+          </div>
+
+          <div class="evening-section">
+            <div class="evening-title">🚂 Back in Copenhagen by late afternoon</div>
+            <div class="evening-desc">Trains back to Copenhagen run every 20 min. You'll be back by 4–5pm with time for a relaxed evening in the city. Consider dinner at Nyhavn or Torvehallerne if you haven't been yet.</div>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- DAY H -->
+      <details class="day-detail">
+        <summary>
+          <span class="day-badge daytrip">H</span>
+          <span class="day-detail-label">
+            <div class="dtitle">Frederiksborg Castle 🚂</div>
+            <div class="dsubtitle">45 min train to Hillerød · Castle → Museum → Baroque Gardens · 4–5 hours</div>
+          </span>
+          <span class="section-chevron">▼</span>
+        </summary>
+        <div class="day-detail-body">
+          <div class="day-overview">
+            Day trip · A half-day trip to Denmark's most spectacular castle — Frederiksborg, a Renaissance masterpiece built across three lake islands in Hillerød. The train runs direct from Copenhagen Central (45 min, S-train line A/E to Hillerød, covered by Copenhagen Card). The castle houses the Museum of National History with lavish rooms and a stunning chapel. The baroque gardens behind are beautiful in summer. This is a more relaxed day trip than Kronborg — fewer stops but more time to soak in the grandeur. You could combine this with Day G (Kronborg) for an ambitious double castle day, but each deserves its own visit.
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">1</div>
+            <div class="stop-content">
+              <div class="stop-name">Frederiksborg Castle</div>
+              <div class="stop-timing">Arrive late morning · 90–120 min</div>
+              <div class="stop-desc">Scandinavia's largest Renaissance castle, built across three islands on a lake. Constructed by Christian IV in the early 1600s, it's jaw-droppingly grand — red brick, copper spires, and an ornate inner courtyard. The approach across the lake is one of Denmark's most photogenic views.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Copenhagen Card covers the S-train AND castle entry</div>
+                <div class="stop-tip">The Neptune Fountain in the courtyard is a reproduction — the original was stolen by the Swedes in 1659</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">2</div>
+            <div class="stop-content">
+              <div class="stop-name">Museum of National History</div>
+              <div class="stop-timing">Inside the castle · 60–90 min</div>
+              <div class="stop-desc">The castle interior houses Denmark's Museum of National History — 500 years of Danish history through portraits, tapestries, and lavishly decorated rooms. The Great Hall and the Chapel (still used for royal ceremonies) are the highlights.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">The Chapel is the highlight — it survived a devastating fire in 1859 and retains its original 1620 interior</div>
+                <div class="stop-tip">The Great Hall is one of the largest Renaissance halls in Northern Europe</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stop">
+            <div class="stop-num">3</div>
+            <div class="stop-content">
+              <div class="stop-name">Baroque Gardens</div>
+              <div class="stop-timing">After the museum · 30–45 min</div>
+              <div class="stop-desc">Behind the castle, meticulously restored baroque gardens cascade down a hillside in geometric patterns of hedges, fountains, and flower beds. Free to enter. From the top of the garden you get a beautiful view back across the lake to the castle.</div>
+              <div class="stop-tips">
+                <div class="stop-tip">Walk to the top of the gardens for the best photo of the castle reflected in the lake</div>
+                <div class="stop-tip">The gardens are free — you can visit them even if you skip the castle museum</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="coffee-section">
+            <div class="coffee-header">☕ Coffee stops nearby</div>
+            <div class="coffee-spot">
+              <div class="coffee-name">Café Havehuset</div>
+              <div class="coffee-rating">4.0 ★ (Tripadvisor, #7 in Hillerød)</div>
+              <div class="coffee-addr">Frederiksborg Castle Gardens — in the park</div>
+              <div class="coffee-desc">Set on top of a hill in the castle gardens with a terrace overlooking the grounds. Coffee, cake, and Danish open sandwiches. A beautiful setting — swans on the pond, birdsong, and views of the historic park.</div>
+            </div>
+            <div class="coffee-spot">
+              <div class="coffee-name">Café Valentin</div>
+              <div class="coffee-rating">Local favourite</div>
+              <div class="coffee-addr">Central Hillerød — near the station</div>
+              <div class="coffee-desc">Popular local café near the station, recommended for lunch before or after the castle. Outdoor patio with castle views. Good coffee and classic Danish lunch dishes. A relaxed spot to refuel.</div>
+            </div>
+          </div>
+
+          <div class="evening-section">
+            <div class="evening-title">🚂 Back in Copenhagen by mid-afternoon</div>
+            <div class="evening-desc">S-trains back to Copenhagen run frequently. This is a lighter half-day trip — you'll likely be back by 3–4pm with plenty of evening time. Could combine with a Kronborg (Day G) early morning for an ambitious double castle day.</div>
+          </div>
+
+        </div>
+      </details>
+
+    </div>
+  </details>
+
+</div>
+
+<script>
+// Offline detection
+window.addEventListener('online', function() { document.body.classList.remove('offline'); });
+window.addEventListener('offline', function() { document.body.classList.add('offline'); });
+if (!navigator.onLine) document.body.classList.add('offline');
+</script>
+</body>
+</html>
