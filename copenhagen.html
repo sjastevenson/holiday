@@ -2158,7 +2158,7 @@
         <div class="info-card-row"><strong>Cards:</strong> Denmark is almost cashless. Visa/Mastercard accepted everywhere. Barely any need for cash.</div>
         <div class="info-card-row"><strong>Plugs:</strong> Denmark uses Type K sockets (round 2-pin). Bring a UK-to-EU adaptor — same one works for Sweden.</div>
         <div class="info-card-row"><strong>Roaming:</strong> Three business SIMs charge £2/day per device (auto-charged when you use data). Covers Denmark &amp; Sweden. 4 SIMs × 8 days = ~£64 total. No action needed — just use your phone normally.</div>
-        <div class="info-card-row"><strong>Transport app:</strong> Download <strong>Rejsebillet</strong> before you go (<a href="https://apps.apple.com/us/app/rejsebillet/id1664432486" target="_blank" rel="noopener" style="color:inherit;">iOS 📍</a> · <a href="https://play.google.com/store/apps/details?id=dk.rejsekort.rejsebillet" target="_blank" rel="noopener" style="color:inherit;">Android 📍</a>) — it's the only app you need for metro, buses, S-trains, and regional trains. Pick your journey, it works out the zones, pay by card/Apple Pay. You can buy tickets for all 4 of you from one phone (tap "Add" for extra passengers). Available in English.</div>
+        <div class="info-card-row"><strong>Transport app:</strong> Download <strong>Rejsebillet</strong> before you go (<a href="https://apps.apple.com/us/app/rejsebillet/id1664432486" target="_blank" rel="noopener" style="color:inherit;">iOS 📍</a> · <a href="https://play.google.com/store/apps/details?id=dk.rejsekort.rejsebillet" target="_blank" rel="noopener" style="color:inherit;">Android 📍</a>) — it's the only app you need for metro, buses, S-trains, and regional trains. Pick your journey, it works out the zones, pay by card/Apple Pay. You can buy tickets for all 4 of you from one phone (tap "Add" for extra passengers). Available in English. The app needs data to work, so if you're offline you can buy tickets from machines at any station (card accepted).</div>
         <div class="info-card-row"><strong>Laundry (self-service):</strong> <a href="https://www.google.com/maps/search/?api=1&query=Vascandia+Møntvaskeri+Borgergade+142+Copenhagen" target="_blank" rel="noopener" style="color:inherit;">Vascandia Møntvaskeri 📍</a> — Borgergade 142 (15 min walk). 75 DKK per wash, 12 DKK per 8 min dryer. Soap included, card accepted, English instructions.</div>
         <div class="info-card-row"><strong>Laundry (drop-off):</strong> <a href="https://www.google.com/maps/search/?api=1&query=Borgergade+Vask+Rens+Borgergade+2+Copenhagen" target="_blank" rel="noopener" style="color:inherit;">Borgergade Vask &amp; Rens 📍</a> — Borgergade 2 (5 min walk). Drop off and pick up, from 19 DKK/item. 24hr drop-off box. Mon–Fri 8–6, Sat 10–1.</div>
         <div class="info-card-row"><strong>Supermarket:</strong> Nearest to hotel is Irma/Netto on Gothersgade, 5 min walk. Good for snacks, drinks, and picnic supplies.</div>
@@ -2359,6 +2359,13 @@
 window.addEventListener('online', function() { document.body.classList.remove('offline'); });
 window.addEventListener('offline', function() { document.body.classList.add('offline'); });
 if (!navigator.onLine) document.body.classList.add('offline');
+
+// Service worker for offline caching
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/holiday/sw.js').then(function() {
+    console.log('Service worker registered');
+  });
+}
 </script>
 </body>
 </html>
